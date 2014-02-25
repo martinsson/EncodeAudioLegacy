@@ -1,0 +1,8 @@
+[true, mp3, 128, lame, true] = encode.audio.entrypoint.AppTechnicalException 
+[false, mp3, 128, lame, true] = encode.audio.entrypoint.AppTechnicalException 
+[true, wav, 128, lame, true] = encode.audio.entrypoint.AppTechnicalException 
+[false, wav, 128, lame, true] = encode.audio.entrypoint.AppTechnicalException 
+[true, mp3, 128, lame, false] = encode.audio.entrypoint.AppTechnicalException 
+[false, mp3, 128, lame, false] = encode.audio.entrypoint.AppTechnicalException 
+[true, wav, 128, lame, false] = encode.audio.entrypoint.AppTechnicalException 
+[false, wav, 128, lame, false] = encode.audio.entrypoint.AppTechnicalException 

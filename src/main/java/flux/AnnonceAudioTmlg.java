@@ -16,6 +16,7 @@ import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 public final class AnnonceAudioTmlg implements IAnnonceAudioTmlg {
+	private static final String NEW_LINE = System.getProperty("line.separator");
 	private String url;
 	private String format;
 	private String fileName;
@@ -25,8 +26,8 @@ public final class AnnonceAudioTmlg implements IAnnonceAudioTmlg {
 		Document document = builder.parse(new ByteArrayInputStream(message.getBytes()) );
 		XPathFactory newInstance = XPathFactory.newInstance();
 		XPath xPath = newInstance.newXPath();
-		Node annonceNode = (Node) xPath.evaluate("//obj[@name='annonceAudio']", document, XPathConstants.NODE); 
-		fileName = getValOffAttribute(xPath, annonceNode, "fileName"); 
+		Node annonceNode = (Node) xPath.evaluate("//obj[@name='annonceAudio']", document, XPathConstants.NODE);
+		fileName = getValOffAttribute(xPath, annonceNode, "fileName");
 		url = getValOffAttribute(xPath, annonceNode, "url");
 		format = getValOffAttribute(xPath, annonceNode, "format");
 	}
@@ -39,7 +40,7 @@ public final class AnnonceAudioTmlg implements IAnnonceAudioTmlg {
 
 	public void setUrl(String string) {
 		url = string;
-		
+
 	}
 
 	public void setFormat(String format) {
@@ -61,12 +62,12 @@ public final class AnnonceAudioTmlg implements IAnnonceAudioTmlg {
 	@Override
 	public String toString() {
 		return "AnnonceAudioTmlg [url=" + url + ", format=" + format
-				+ ", fileName=" + fileName + "]";
+				+ ", fileName=" + fileName + "]" + NEW_LINE;
 	}
 
 	public String getFormat() {
 		return format;
 	}
 
-	
+
 }

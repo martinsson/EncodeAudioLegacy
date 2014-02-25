@@ -1,16 +1,31 @@
-[true, mp3, 128, lame, true, true] = encode.audio.entrypoint.AppTechnicalException 
-[false, mp3, 128, lame, true, true] = encode.audio.entrypoint.AppTechnicalException 
-[true, wav, 128, lame, true, true] = encode.audio.entrypoint.AppTechnicalException 
-[false, wav, 128, lame, true, true] = encode.audio.entrypoint.AppTechnicalException 
-[true, mp3, 128, lame, false, true] = encode.audio.entrypoint.AppTechnicalException 
-[false, mp3, 128, lame, false, true] = encode.audio.entrypoint.AppTechnicalException 
-[true, wav, 128, lame, false, true] = encode.audio.entrypoint.AppTechnicalException 
-[false, wav, 128, lame, false, true] = encode.audio.entrypoint.AppTechnicalException 
-[true, mp3, 128, lame, true, false] = FluxTmlg [body=AnnonceAudioTmlg [url=http://localhost/get10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3, format=mp3, fileName=10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3]] 
-[false, mp3, 128, lame, true, false] = FluxTmlg [body=AnnonceAudioTmlg [url=http://localhost/get10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3, format=mp3, fileName=10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3]] 
-[true, wav, 128, lame, true, false] = FluxTmlg [body=AnnonceAudioTmlg [url=http://localhost/get10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3, format=mp3, fileName=10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3]] 
-[false, wav, 128, lame, true, false] = FluxTmlg [body=AnnonceAudioTmlg [url=http://localhost/get10.151.156.180Mon_Nov_04_140724_CET_2013343.wav, format=wav, fileName=10.151.156.180Mon_Nov_04_140724_CET_2013343.wav]] 
-[true, mp3, 128, lame, false, false] = FluxTmlg [body=AnnonceAudioTmlg [url=http://localhost/get10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3, format=mp3, fileName=10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3]] 
-[false, mp3, 128, lame, false, false] = FluxTmlg [body=AnnonceAudioTmlg [url=http://localhost/get10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3, format=mp3, fileName=10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3]] 
-[true, wav, 128, lame, false, false] = encode.audio.entrypoint.AppTechnicalException 
-[false, wav, 128, lame, false, false] = FluxTmlg [body=AnnonceAudioTmlg [url=http://localhost/get10.151.156.180Mon_Nov_04_140724_CET_2013343.wav, format=wav, fileName=10.151.156.180Mon_Nov_04_140724_CET_2013343.wav]] 
+[true, mp3, 128, lame, true,  UC DestAudioFile NotAlreadyEncoded] = FluxTmlg [body=AnnonceAudioTmlg [url=http://localhost/get10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3, format=mp3, fileName=10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3]
+] 
+[false, mp3, 128, lame, true,  UC DestAudioFile NotAlreadyEncoded] = FluxTmlg [body=AnnonceAudioTmlg [url=http://localhost/get10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3, format=mp3, fileName=10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3]
+] 
+[true, wav, 128, lame, true,  UC DestAudioFile NotAlreadyEncoded] = FluxTmlg [body=AnnonceAudioTmlg [url=http://localhost/get10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3, format=mp3, fileName=10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3]
+] 
+[false, wav, 128, lame, true,  UC DestAudioFile NotAlreadyEncoded] = FluxTmlg [body=AnnonceAudioTmlg [url=http://localhost/get10.151.156.180Mon_Nov_04_140724_CET_2013343.wav, format=wav, fileName=10.151.156.180Mon_Nov_04_140724_CET_2013343.wav]
+] 
+[true, mp3, 128, lame, false,  UC DestAudioFile NotAlreadyEncoded] = FluxTmlg [body=AnnonceAudioTmlg [url=http://localhost/get10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3, format=mp3, fileName=10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3]
+] 
+[false, mp3, 128, lame, false,  UC DestAudioFile NotAlreadyEncoded] = FluxTmlg [body=AnnonceAudioTmlg [url=http://localhost/get10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3, format=mp3, fileName=10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3]
+] 
+[true, wav, 128, lame, false,  UC DestAudioFile NotAlreadyEncoded] = encode.audio.entrypoint.AppTechnicalException 
+[false, wav, 128, lame, false,  UC DestAudioFile NotAlreadyEncoded] = FluxTmlg [body=AnnonceAudioTmlg [url=http://localhost/get10.151.156.180Mon_Nov_04_140724_CET_2013343.wav, format=wav, fileName=10.151.156.180Mon_Nov_04_140724_CET_2013343.wav]
+] 
+[true, mp3, 128, lame, true,  UC DestAudioFile AlreadyEncoded] = FluxTmlg [body=AnnonceAudioTmlg [url=http://localhost/get10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3, format=mp3, fileName=10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3]
+] 
+[false, mp3, 128, lame, true,  UC DestAudioFile AlreadyEncoded] = FluxTmlg [body=AnnonceAudioTmlg [url=http://localhost/get10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3, format=mp3, fileName=10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3]
+] 
+[true, wav, 128, lame, true,  UC DestAudioFile AlreadyEncoded] = FluxTmlg [body=AnnonceAudioTmlg [url=http://localhost/get10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3, format=mp3, fileName=10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3]
+] 
+[false, wav, 128, lame, true,  UC DestAudioFile AlreadyEncoded] = FluxTmlg [body=AnnonceAudioTmlg [url=http://localhost/get10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3, format=mp3, fileName=10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3]
+] 
+[true, mp3, 128, lame, false,  UC DestAudioFile AlreadyEncoded] = FluxTmlg [body=AnnonceAudioTmlg [url=http://localhost/get10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3, format=mp3, fileName=10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3]
+] 
+[false, mp3, 128, lame, false,  UC DestAudioFile AlreadyEncoded] = FluxTmlg [body=AnnonceAudioTmlg [url=http://localhost/get10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3, format=mp3, fileName=10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3]
+] 
+[true, wav, 128, lame, false,  UC DestAudioFile AlreadyEncoded] = FluxTmlg [body=AnnonceAudioTmlg [url=http://localhost/get10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3, format=mp3, fileName=10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3]
+] 
+[false, wav, 128, lame, false,  UC DestAudioFile AlreadyEncoded] = FluxTmlg [body=AnnonceAudioTmlg [url=http://localhost/get10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3, format=mp3, fileName=10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3]
+] 
