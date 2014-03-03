@@ -9,7 +9,7 @@ import javax.management.RuntimeErrorException;
 
 import encode.audio.entrypoint.DataObject;
 
-final class HttpDataObj implements DataObject {
+public class HttpDataObj implements DataObject {
 	private final String tmpdir;
 	private String urlEmbarqueGet;
 
@@ -24,7 +24,7 @@ final class HttpDataObj implements DataObject {
 			return urlEmbarqueGet;
 		else if (key.equals("audio_temp_path"))
 			return tmpdir;
-		else 
+		else
 //			return tmpdir;
 			throw new RuntimeException("didnt configure " + key);
 	}

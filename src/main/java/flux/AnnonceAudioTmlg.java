@@ -16,7 +16,6 @@ import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 public final class AnnonceAudioTmlg implements IAnnonceAudioTmlg {
-	private static final String NEW_LINE = System.getProperty("line.separator");
 	private String url;
 	private String format;
 	private String fileName;
@@ -62,7 +61,7 @@ public final class AnnonceAudioTmlg implements IAnnonceAudioTmlg {
 	@Override
 	public String toString() {
 		return "AnnonceAudioTmlg [url=" + url + ", format=" + format
-				+ ", fileName=" + fileName + "]" + NEW_LINE;
+				+ ", fileName=" + fileName + "]\n";
 	}
 
 	public String getFormat() {

@@ -13,6 +13,7 @@ import org.approvaltests.reporters.UseReporter;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.powermock.api.mockito.PowerMockito;
@@ -21,9 +22,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import templating.TemplateEngine;
 import templating.mustache.MustacheTemplateEngine;
-import encode.audio.entrypoint.DataObject;
-import encode.audio.entrypoint.FileUtils;
-import encode.audio.entrypoint.GererAnnonceAudio;
 import encode.audio.entrypoint.reporter.MyWinMergeReporter;
 import encode.audio.utils.CoreException;
 import encode.audio.utils.Mp3Encoder;
@@ -31,6 +29,7 @@ import flux.ObixTmlgExeption;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Mp3Encoder.class)
+@UseReporter(MyWinMergeReporter.class)
 public class GererAnnonceAudioTest {
 
 	private static final String TEST_MP3_FILENAME = "test.mp3";
@@ -66,11 +65,117 @@ public class GererAnnonceAudioTest {
 		Object[] bitrate = { 128 };
 		Object[] audioExtension = { "mp3", "wav" };
 		Object[] encoding = ALL_BOOLEAN_VALUES;
-		Object[] destAudioFile = {new UC_DestAudioFile_NotAlreadyEncoded(), new UC_DestAudioFile_AlreadyEncoded(TEST_MP3_FILENAME)};
+		Object[] destAudioFileUC = { new UC_DestAudioFile_NotAlreadyEncoded(),
+				new UC_DestAudioFile_AlreadyEncoded(TEST_MP3_FILENAME) };
 
 		LegacyApprovals.LockDown(this,
 				"default_GererAnnonceAudioCatchExceptions", encodingActivated,
-				audioExtension, bitrate, conversionBinaryName, encoding, destAudioFile);
+				audioExtension, bitrate, conversionBinaryName, encoding,
+				destAudioFileUC);
+	}
+
+	@Test(expected = AppTechnicalException.class)
+	public void cannot_publish_target_audio_file_readfileissue()
+			throws Exception {
+		Boolean encodingActivated = Boolean.TRUE;
+		String audioExtension = "mp3";
+		Integer bitrate = new Integer(128);
+		String conversionBinaryName = "lame";
+		Boolean encodingSuccess = Boolean.TRUE;
+		UC_DestAudioFile destAudioFile = new UC_DestAudioFile_AlreadyEncoded(
+				TEST_MP3_FILENAME);
+
+		TemporaryFolder rootFolder = setup();
+		final File downloadDir = rootFolder.newFolder();
+		GererAnnonceAudio aa = gererAnnonceAudio_WithNoLocalServerFolder();
+		gererAnnonceAudio_simulate_readissue(encodingActivated, audioExtension, bitrate,
+				conversionBinaryName, encodingSuccess, aa, downloadDir,
+				destAudioFile);
+	}
+
+	@Test(expected = AppTechnicalException.class)
+	public void cannot_publish_target_audio_file_writefileissue()
+			throws Exception {
+		Boolean encodingActivated = Boolean.TRUE;
+		String audioExtension = "mp3";
+		Integer bitrate = new Integer(128);
+		String conversionBinaryName = "lame";
+		Boolean encodingSuccess = Boolean.TRUE;
+		UC_DestAudioFile destAudioFile = new UC_DestAudioFile_AlreadyEncoded(
+				TEST_MP3_FILENAME);
+
+		TemporaryFolder rootFolder = setup();
+		final File downloadDir = rootFolder.newFolder();
+		GererAnnonceAudio aa = gererAnnonceAudio_WithNoLocalServerFolder();
+		allGererAnnonceAudio(encodingActivated,
+				audioExtension, bitrate, conversionBinaryName, encodingSuccess,
+				aa, downloadDir, destAudioFile);
+
+	}
+
+	private String gererAnnonceAudio_simulate_readissue(
+			Boolean encodingActivated, String audioExtension, Integer bitrate,
+			String conversionBinaryName, Boolean encodingSuccess,
+			GererAnnonceAudio aa, File downloadDir,
+			UC_DestAudioFile destAudioFile) throws Exception {
+
+		downloadDir.mkdir();
+		HttpDataObj httpDataObj = Mockito.mock(HttpDataObj.class);
+		Mockito.when(httpDataObj.getString("audio_temp_path"))
+				.thenReturn(downloadDir.getAbsolutePath() + "/").thenReturn("writeissue");
+		Mockito.when(httpDataObj.getString("url_embarque_server_get"))
+				.thenReturn("http://localhost/get");
+
+		DataObject configAudioTmp = new AudioDataObject(encodingActivated,
+				audioExtension); // url_embarque_server_get,
+
+		final String destinationFullPath = downloadDir.getAbsolutePath() + "/"
+				+ "10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3";
+		final String resourceName = TEST_MP3_FILENAME;
+
+		Answer<Integer> encodingOperation = encodingSuccess ? successfullEncoding(
+				resourceName, destinationFullPath) : encodingFailure();
+
+		PowerMockito.mockStatic(Mp3Encoder.class);
+		PowerMockito.when(Mp3Encoder.launchMp3Exec(anyString())).thenAnswer(
+				encodingOperation);
+
+		destAudioFile.activateUC(destinationFullPath);
+
+		// When
+		String flux = aa.demanderFlux(buildXmlRequest(audioExtension),
+				configAudioTmp, httpDataObj);
+
+		// Then
+		return flux;
+	}
+
+	private GererAnnonceAudio gererAnnonceAudio_WithNoLocalServerFolder()
+			throws IOException {
+		GererAnnonceAudio aa = new GererAnnonceAudio() {
+			@Override
+			public byte[] downloadAudioFileFromHttpServer(String fileUrl)
+					throws CoreException {
+				try {
+					InputStream resource = getClass()
+							.getClassLoader()
+							.getResourceAsStream(
+									"10.151.156.180Mon_Nov_04_140724_CET_2013343.wav");
+					byte[] bts = new byte[1000000];
+					resource.read(bts);
+					return bts;
+				} catch (Exception e) {
+					throw new CoreException(e);
+				}
+			}
+
+			@Override
+			protected String getLocalServerFolder() {
+
+				return "/no/local/server/folder";
+			}
+		};
+		return aa;
 	}
 
 	public String downloadError_GererAnnonceAudioCatchExceptions(
@@ -83,9 +188,9 @@ public class GererAnnonceAudioTest {
 				aa = gererAnnonceAudio_DownloadError();
 
 				final File downloadDir = rootFolder.newFolder();
-				return downloadError_GererAnnonceAudio(encodingActivated, audioExtension,
-						bitrate, conversionBinaryName, encodingSuccess, aa,
-						downloadDir);
+				return downloadError_GererAnnonceAudio(encodingActivated,
+						audioExtension, bitrate, conversionBinaryName,
+						encodingSuccess, aa, downloadDir);
 			} finally {
 				teardown(rootFolder);
 
@@ -98,7 +203,8 @@ public class GererAnnonceAudioTest {
 
 	public String default_GererAnnonceAudioCatchExceptions(
 			Boolean encodingActivated, String audioExtension, Integer bitrate,
-			String conversionBinaryName, Boolean encodingSuccess, UC_DestAudioFile destAudioFile) {
+			String conversionBinaryName, Boolean encodingSuccess,
+			UC_DestAudioFile destAudioFile) {
 		try {
 			TemporaryFolder rootFolder = setup();
 			try {
@@ -108,7 +214,7 @@ public class GererAnnonceAudioTest {
 				final File downloadDir = rootFolder.newFolder();
 				return allGererAnnonceAudio(encodingActivated, audioExtension,
 						bitrate, conversionBinaryName, encodingSuccess, aa,
-						downloadDir, destAudioFile );
+						downloadDir, destAudioFile);
 			} finally {
 				teardown(rootFolder);
 
@@ -138,16 +244,15 @@ public class GererAnnonceAudioTest {
 		Answer<Integer> encodingOperation = encodingSuccess ? successfullEncoding(
 				resourceName, destinationFullPath) : encodingFailure();
 
-				PowerMockito.when(Mp3Encoder.launchMp3Exec(anyString())).thenAnswer(
-						encodingOperation);
+		PowerMockito.when(Mp3Encoder.launchMp3Exec(anyString())).thenAnswer(
+				encodingOperation);
 
+		// When
+		String flux = aa.demanderFlux(buildXmlRequest(audioExtension),
+				configAudioTmp, httpDataObj);
 
-				// When
-				String flux = aa.demanderFlux(buildXmlRequest(audioExtension),
-						configAudioTmp, httpDataObj);
-
-				// Then
-				return flux;
+		// Then
+		return flux;
 	}
 
 	public String allGererAnnonceAudio(Boolean encodingActivated,
@@ -169,12 +274,11 @@ public class GererAnnonceAudioTest {
 		Answer<Integer> encodingOperation = encodingSuccess ? successfullEncoding(
 				resourceName, destinationFullPath) : encodingFailure();
 
-				PowerMockito.mockStatic(Mp3Encoder.class);
+		PowerMockito.mockStatic(Mp3Encoder.class);
 		PowerMockito.when(Mp3Encoder.launchMp3Exec(anyString())).thenAnswer(
 				encodingOperation);
 
 		destAudioFile.activateUC(destinationFullPath);
-
 
 		// When
 		String flux = aa.demanderFlux(buildXmlRequest(audioExtension),
