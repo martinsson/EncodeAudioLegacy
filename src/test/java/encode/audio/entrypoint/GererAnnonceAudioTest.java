@@ -22,14 +22,12 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import templating.TemplateEngine;
 import templating.mustache.MustacheTemplateEngine;
-import encode.audio.entrypoint.reporter.MyWinMergeReporter;
 import encode.audio.utils.CoreException;
 import encode.audio.utils.Mp3Encoder;
 import flux.ObixTmlgExeption;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Mp3Encoder.class)
-@UseReporter(MyWinMergeReporter.class)
 public class GererAnnonceAudioTest {
 
 	private static final String TEST_MP3_FILENAME = "test.mp3";
