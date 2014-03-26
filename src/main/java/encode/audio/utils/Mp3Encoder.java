@@ -11,9 +11,8 @@ public class Mp3Encoder {
 		p1.getInputStream().close();
 		p1.getErrorStream().close();
 		p1.waitFor();
-	
-		// Ex�cution de la commande d'encodage audio
-		//LOG.info("Fin de l'encodage du fichier audio, code retour de la commande :" + p.exitValue());
+
+		//LOG.info("End of the encoding audio file with return code: " + p.exitValue());
 		int exitValue = p1.exitValue();
 		return exitValue;
 	}

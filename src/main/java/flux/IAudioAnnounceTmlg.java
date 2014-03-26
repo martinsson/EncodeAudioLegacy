@@ -1,8 +1,6 @@
 package flux;
 
-import java.math.BigDecimal;
-
-public interface IAnnonceAudioTmlg {
+public interface IAudioAnnounceTmlg {
 
 	void setFileName(String name);
 

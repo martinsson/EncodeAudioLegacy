@@ -1,12 +1,5 @@
 package flux;
 
-import java.io.IOException;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPathExpressionException;
-
-import org.xml.sax.SAXException;
-
 public class FluxTmlg implements IFluxTmlg {
 
 	private IBodyTmlg body;
@@ -14,21 +7,22 @@ public class FluxTmlg implements IFluxTmlg {
 	public FluxTmlg(String message) throws ObixTmlgExeption {
 
 		try {
-			final IAnnonceAudioTmlg annonceAudio = new AnnonceAudioTmlg(message);
-			final IInfoVoyageurTmlg infoVoyageur = new IInfoVoyageurTmlg() {
+			final IAudioAnnounceTmlg audioAnnounce = new AudioAnnounceTmlg(message);
+			final ITravelInfoTmlg travelInfo = new ITravelInfoTmlg() {
 
-				public IAnnonceAudioTmlg getAnnonceAudio() {
-					return annonceAudio;
+				public IAudioAnnounceTmlg getAudioAnnounce() {
+					return audioAnnounce;
 				}
 			};
 			body = new IBodyTmlg() {
 
-				public IInfoVoyageurTmlg getInfoVoyageur() {
-					return infoVoyageur;
+				public ITravelInfoTmlg getTravelInfo() {
+					return travelInfo;
 				}
+
 				@Override
 				public String toString() {
-					return annonceAudio.toString();
+					return audioAnnounce.toString();
 				}
 			};
 		} catch (Exception e) {
@@ -46,6 +40,4 @@ public class FluxTmlg implements IFluxTmlg {
 	public String toString() {
 		return "FluxTmlg [body=" + body + "]";
 	}
-
-
 }

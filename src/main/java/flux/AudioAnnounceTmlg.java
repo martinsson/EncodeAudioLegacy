@@ -15,31 +15,31 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-public final class AnnonceAudioTmlg implements IAnnonceAudioTmlg {
+public final class AudioAnnounceTmlg implements IAudioAnnounceTmlg {
 	private String url;
 	private String format;
 	private String fileName;
 
-	public AnnonceAudioTmlg(String message) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
+	public AudioAnnounceTmlg(String message) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
 		DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		Document document = builder.parse(new ByteArrayInputStream(message.getBytes()) );
 		XPathFactory newInstance = XPathFactory.newInstance();
 		XPath xPath = newInstance.newXPath();
-		Node annonceNode = (Node) xPath.evaluate("//obj[@name='annonceAudio']", document, XPathConstants.NODE); 
-		fileName = getValOffAttribute(xPath, annonceNode, "fileName"); 
-		url = getValOffAttribute(xPath, annonceNode, "url");
-		format = getValOffAttribute(xPath, annonceNode, "format");
+		Node announceNode = (Node) xPath.evaluate("//obj[@name='annonceAudio']", document, XPathConstants.NODE);
+		fileName = getValOffAttribute(xPath, announceNode, "fileName");
+		url = getValOffAttribute(xPath, announceNode, "url");
+		format = getValOffAttribute(xPath, announceNode, "format");
 	}
 
-	private static String getValOffAttribute(XPath xPath, Node annonceNode,
+	private static String getValOffAttribute(XPath xPath, Node announceNode,
 			String attribute) throws XPathExpressionException {
-		return xPath.evaluate("*[@name='ATTR']/@val".replace("ATTR", attribute), annonceNode);
+		return xPath.evaluate("*[@name='ATTR']/@val".replace("ATTR", attribute), announceNode);
 	}
 
 
 	public void setUrl(String string) {
 		url = string;
-		
+
 	}
 
 	public void setFormat(String format) {
@@ -58,15 +58,14 @@ public final class AnnonceAudioTmlg implements IAnnonceAudioTmlg {
 		return fileName;
 	}
 
-	@Override
-	public String toString() {
-		return "AnnonceAudioTmlg [url=" + url + ", format=" + format
-				+ ", fileName=" + fileName + "]";
-	}
 
 	public String getFormat() {
 		return format;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "AnnounceAudioTmlg [url=" + url + ", format=" + format
+				+ ", fileName=" + fileName + "]";
+	}
 }
