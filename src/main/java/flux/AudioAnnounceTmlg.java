@@ -22,7 +22,7 @@ public final class AudioAnnounceTmlg implements IAudioAnnounceTmlg {
 
 	public AudioAnnounceTmlg(String message) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
 		DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-		Document document = builder.parse(new ByteArrayInputStream(message.getBytes()) );
+		Document document = builder.parse(new ByteArrayInputStream(message.getBytes()));
 		XPathFactory newInstance = XPathFactory.newInstance();
 		XPath xPath = newInstance.newXPath();
 		Node announceNode = (Node) xPath.evaluate("//obj[@name='annonceAudio']", document, XPathConstants.NODE);

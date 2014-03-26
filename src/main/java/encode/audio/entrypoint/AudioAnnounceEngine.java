@@ -116,7 +116,7 @@ public class AudioAnnounceEngine {
 	}
 
 	protected String getLocalServerFolder() {
-		return "/pscs/";
+		return "./src/test/resources/pscs";
 	}
 
 	/**
@@ -133,8 +133,7 @@ public class AudioAnnounceEngine {
 			logger.log(LogService.LOG_DEBUG, "the original audio file already exists in local: '" + httpConfig.getString("audio_temp_path") + fileName + "'");
 		}
 		else {
-			byte[] fileData = downloadAudioFileFromHttpServer(fileUrl);
-			CoreUtil.saveAudioFile(destinationfilePath, fileData);
+			logger.log(LogService.LOG_DEBUG, "simulate downloading audio file: '" + httpConfig.getString("audio_temp_path") + fileName + "' to locally path: " + destinationfilePath);
 		}
 	}
 

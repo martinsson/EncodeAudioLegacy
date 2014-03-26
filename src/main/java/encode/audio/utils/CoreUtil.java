@@ -97,7 +97,8 @@ public final class CoreUtil {
 
 					logger.log(LogService.LOG_INFO, "Running the command: " + cmd);
 
-					int exitValue = Mp3Encoder.launchMp3Exec(cmd);
+					logger.log(LogService.LOG_INFO, "Simulate Mp3Encoder.launchMp3Exec(" + cmd +")");
+					int exitValue = 0;
 					logger.log(LogService.LOG_INFO, "End of the encoding audio file with return code: " + exitValue);
 
 					if (exitValue == 0) {
@@ -108,8 +109,6 @@ public final class CoreUtil {
 				}
 			}
 			return fileResult;
-		} catch (IOException e) {
-			throw new CoreException("Error when encoding audio file " + e);
 		} catch (Exception e) {
 			throw new CoreException("Error when encoding audio file " + e);
 		}
