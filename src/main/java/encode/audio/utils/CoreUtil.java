@@ -1,8 +1,12 @@
 package encode.audio.utils;
 
 import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Scanner;
 
 import encode.audio.entrypoint.DataObject;
 
@@ -110,14 +114,47 @@ public final class CoreUtil {
 		}
 	}
 
-    protected static int encodeFile(String binaryCommand, String path, String fileName, String newFilename) {
+    protected static int encodeFile(String binaryCommand, String path, String fileName, String newFilename) throws IOException {
+        
         String cmd = binaryCommand + " " + path + fileName + " " + path + newFilename;
-
         logger.log(LogService.LOG_INFO, "Running the command: " + cmd);
-
         logger.log(LogService.LOG_INFO, "Simulate Mp3Encoder.launchMp3Exec(" + cmd +")");
+        byte[] fileData = readBytes(path, fileName);
+        byte[] encodedData = encodeBytes(fileData);
+        writeBytes(path, newFilename, encodedData);
+        
+
         int exitValue = 0;
         return exitValue;
+    }
+
+    protected static void writeBytes(String path, String newFilename, byte[] encodedData) throws FileNotFoundException, IOException {
+        File newFile = new File(path + newFilename);
+        FileOutputStream fileInputStream = new FileOutputStream(newFile);
+        fileInputStream.write(encodedData);
+        logger.log(LogService.LOG_DEBUG, "Getting audio file date to send: OK");
+        fileInputStream.close();
+    }
+
+    protected static byte[] encodeBytes(byte[] fileData) {
+        byte[] encodedData = new byte[(int) fileData.length];
+        
+        //rotate data
+        encodedData[0] = fileData[fileData.length-1];
+        for (int i = 1; i < encodedData.length; i++) {
+            encodedData[i] = fileData[i-1];
+        }
+        return encodedData;
+    }
+
+    protected static byte[] readBytes(String path, String fileName) throws FileNotFoundException, IOException {
+        File newFile = new File(path + fileName);
+        FileInputStream fileInputStream = new FileInputStream(newFile);
+        byte[] binaryFile = new byte[(int) newFile.length()];
+        fileInputStream.read(binaryFile);
+        logger.log(LogService.LOG_DEBUG, "Getting audio file date to send: OK");
+        fileInputStream.close();
+        return binaryFile;
     }
 
 	/**
