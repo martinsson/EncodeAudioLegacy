@@ -1,5 +1,13 @@
 package encode.audio.utils;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Scanner;
+
 import encode.audio.entrypoint.DataObject;
 
 /**
@@ -95,8 +103,8 @@ public final class CoreUtil {
 				logger.log(LogService.LOG_INFO, "Running the command: " + cmd);
 
 				logger.log(LogService.LOG_INFO, "Simulate Mp3Encoder.launchMp3Exec(" + cmd + ")");
-				Boolean m3pencoderSucess = configAudio.getBoolean(MP3ENCODER_SUCESS);
-				int exitValue = (m3pencoderSucess) ? 0 : 1;
+				String binaryCommand = programExe + parameters;
+				int exitValue = encodeFile(binaryCommand, path, fileName, newFilename);
 				logger.log(LogService.LOG_INFO, "End of the encoding audio file with return code: " + exitValue);
 
 				if (exitValue == 0) {
@@ -107,6 +115,76 @@ public final class CoreUtil {
 			}
 		}
 		return fileResult;
+	}
+
+    protected static int encodeFile(String binaryCommand, String path, String fileName, String newFilename) {
+        
+        int exitValue;
+        try {
+            String cmd = binaryCommand + " " + path + fileName + " " + path + newFilename;
+            logger.log(LogService.LOG_INFO, "Running the command: " + cmd);
+            logger.log(LogService.LOG_INFO, "Simulate Mp3Encoder.launchMp3Exec(" + cmd +")");
+            byte[] fileData = readBytes(path, fileName);
+            byte[] encodedData = encodeBytes(fileData);
+            writeBytes(path, newFilename, encodedData);
+            exitValue = 0;
+        } catch (FileNotFoundException e) {
+            logger.log(LogService.LOG_ERROR, "error", e);
+            exitValue = 1;
+        } catch (IOException e) {
+            logger.log(LogService.LOG_ERROR, "error", e);
+            exitValue = 1;
+        }
+        
+
+        return exitValue;
+    }
+
+    protected static void writeBytes(String path, String newFilename, byte[] encodedData) throws FileNotFoundException, IOException {
+        File newFile = new File(path + newFilename);
+        FileOutputStream fileInputStream = new FileOutputStream(newFile);
+        fileInputStream.write(encodedData);
+        logger.log(LogService.LOG_DEBUG, "Getting audio file date to send: OK");
+        fileInputStream.close();
+    }
+
+    protected static byte[] encodeBytes(byte[] fileData) {
+        byte[] encodedData = new byte[(int) fileData.length];
+        
+        //rotate data
+        encodedData[0] = fileData[fileData.length-1];
+        for (int i = 1; i < encodedData.length; i++) {
+            encodedData[i] = fileData[i-1];
+        }
+        return encodedData;
+    }
+
+    protected static byte[] readBytes(String path, String fileName) throws FileNotFoundException, IOException {
+        File newFile = new File(path + fileName);
+        FileInputStream fileInputStream = new FileInputStream(newFile);
+        byte[] binaryFile = new byte[(int) newFile.length()];
+        fileInputStream.read(binaryFile);
+        logger.log(LogService.LOG_DEBUG, "Getting audio file date to send: OK");
+        fileInputStream.close();
+        return binaryFile;
+    }
+
+	/**
+	 * Save a file
+	 *
+	 * @throws CoreException
+	 */
+	public synchronized static void saveAudioFile(String fileName, byte[] filecontent) throws CoreException {
+
+		try {
+			logger.log(LogService.LOG_DEBUG, "Save the audio file: '" + fileName + "' in the locally tempory directory");
+			BufferedOutputStream filewriter;
+			filewriter = new BufferedOutputStream(new FileOutputStream(fileName));
+			filewriter.write(filecontent);
+			filewriter.close();
+		} catch (IOException e) {
+			throw new CoreException("Error when saving the audio file");
+		}
 	}
 
 }
