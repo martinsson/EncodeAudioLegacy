@@ -93,12 +93,8 @@ public final class CoreUtil {
 						parameters = parameters.concat(" -V " + vbrQuality);
 					}
 
-					String cmd = programExe + parameters + " " + path + fileName + " " + path + newFilename;
-
-					logger.log(LogService.LOG_INFO, "Running the command: " + cmd);
-
-					logger.log(LogService.LOG_INFO, "Simulate Mp3Encoder.launchMp3Exec(" + cmd +")");
-					int exitValue = 0;
+					String binaryCommand = programExe + parameters;
+                    int exitValue = encodeFile(binaryCommand, path, fileName, newFilename);
 					logger.log(LogService.LOG_INFO, "End of the encoding audio file with return code: " + exitValue);
 
 					if (exitValue == 0) {
@@ -113,6 +109,16 @@ public final class CoreUtil {
 			throw new CoreException("Error when encoding audio file " + e);
 		}
 	}
+
+    protected static int encodeFile(String binaryCommand, String path, String fileName, String newFilename) {
+        String cmd = binaryCommand + " " + path + fileName + " " + path + newFilename;
+
+        logger.log(LogService.LOG_INFO, "Running the command: " + cmd);
+
+        logger.log(LogService.LOG_INFO, "Simulate Mp3Encoder.launchMp3Exec(" + cmd +")");
+        int exitValue = 0;
+        return exitValue;
+    }
 
 	/**
 	 * Save a file
