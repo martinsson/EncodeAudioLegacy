@@ -114,17 +114,26 @@ public final class CoreUtil {
 		}
 	}
 
-    protected static int encodeFile(String binaryCommand, String path, String fileName, String newFilename) throws IOException {
+    protected static int encodeFile(String binaryCommand, String path, String fileName, String newFilename) {
         
-        String cmd = binaryCommand + " " + path + fileName + " " + path + newFilename;
-        logger.log(LogService.LOG_INFO, "Running the command: " + cmd);
-        logger.log(LogService.LOG_INFO, "Simulate Mp3Encoder.launchMp3Exec(" + cmd +")");
-        byte[] fileData = readBytes(path, fileName);
-        byte[] encodedData = encodeBytes(fileData);
-        writeBytes(path, newFilename, encodedData);
+        int exitValue;
+        try {
+            String cmd = binaryCommand + " " + path + fileName + " " + path + newFilename;
+            logger.log(LogService.LOG_INFO, "Running the command: " + cmd);
+            logger.log(LogService.LOG_INFO, "Simulate Mp3Encoder.launchMp3Exec(" + cmd +")");
+            byte[] fileData = readBytes(path, fileName);
+            byte[] encodedData = encodeBytes(fileData);
+            writeBytes(path, newFilename, encodedData);
+            exitValue = 0;
+        } catch (FileNotFoundException e) {
+            logger.log(LogService.LOG_ERROR, "error", e);
+            exitValue = 1;
+        } catch (IOException e) {
+            logger.log(LogService.LOG_ERROR, "error", e);
+            exitValue = 1;
+        }
         
 
-        int exitValue = 0;
         return exitValue;
     }
 
