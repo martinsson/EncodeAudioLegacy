@@ -29,6 +29,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.github.dreamhead.moco.HttpServer;
+import com.github.dreamhead.moco.Moco;
 import com.github.dreamhead.moco.Runner;
 
 import templating.TemplateEngine;
@@ -40,16 +41,24 @@ import flux.ObixTmlgExeption;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Mp3Encoder.class)
 public class GererAnnonceAudioTest {
-
     
+    private Runner runner;
+    HttpServer server = httpserver(12306);
+
+    @Before
+    public void setuphttp() {
+        runner = runner(server);
+        runner.start();
+    }
+
+    @After
+    public void tearDown() {
+        runner.stop();
+    }
+    
+
 	private static final String TEST_MP3_FILENAME = "test.mp3";
 	private static final Object[] ALL_BOOLEAN_VALUES = { true, false };
-
-	// @Test
-	// public void runOnce() throws Exception {
-	// assertEquals("kbaskhjfksadjf", allGererAnnonceAudio(true, "wav", 128,
-	// "lame"));
-	// }
 
 	@Test
 	public void downLoadError_transformationLock() throws Exception {
@@ -61,6 +70,8 @@ public class GererAnnonceAudioTest {
 		Object[] audioExtension = { "mp3", "wav" };
 		Object[] encoding = ALL_BOOLEAN_VALUES;
 
+		server.response(Moco.status(404));
+		
 		LegacyApprovals.LockDown(this,
 				"downloadError_GererAnnonceAudioCatchExceptions",
 				encodingActivated, audioExtension, bitrate,
@@ -179,8 +190,7 @@ public class GererAnnonceAudioTest {
 		try {
 			TemporaryFolder rootFolder = setup();
 			try {
-				GererAnnonceAudio aa;
-				aa = gererAnnonceAudio_DownloadError();
+				GererAnnonceAudio aa = new GererAnnonceAudio();
 
 				final File downloadDir = rootFolder.newFolder();
 				return downloadError_GererAnnonceAudio(encodingActivated,
@@ -196,20 +206,6 @@ public class GererAnnonceAudioTest {
 		}
 	}
 
-    private Runner runner;
-    HttpServer server = httpserver(12306);
-
-    @Before
-    public void setuphttp() {
-        runner = runner(server);
-        runner.start();
-    }
-
-    @After
-    public void tearDown() {
-        runner.stop();
-    }
-    
 	public String default_GererAnnonceAudioCatchExceptions(
 			Boolean encodingActivated, String audioExtension, Integer bitrate,
 			String conversionBinaryName, Boolean encodingSuccess,
@@ -232,6 +228,22 @@ public class GererAnnonceAudioTest {
 			e.printStackTrace();
 			return e.getClass().getName();
 		}
+	}
+	
+	private GererAnnonceAudio gererAnnonceAudio_DefaultCase(
+	        final TemporaryFolder rootFolder) throws IOException {
+	    final File lclsrvrFolder = rootFolder.newFolder();
+	    lclsrvrFolder.mkdir();
+
+	    GererAnnonceAudio aa = new GererAnnonceAudio() {
+
+	        @Override
+	        protected String getLocalServerFolder() {
+
+	            return lclsrvrFolder.getAbsolutePath();
+	        }
+	    };
+	    return aa;
 	}
 
 	public String downloadError_GererAnnonceAudio(Boolean encodingActivated,
@@ -346,27 +358,5 @@ public class GererAnnonceAudioTest {
 		return message;
 	}
 
-	private GererAnnonceAudio gererAnnonceAudio_DefaultCase(
-			final TemporaryFolder rootFolder) throws IOException {
-		final File lclsrvrFolder = rootFolder.newFolder();
-		lclsrvrFolder.mkdir();
 
-		GererAnnonceAudio aa = new GererAnnonceAudio() {
-
-			@Override
-			protected String getLocalServerFolder() {
-
-				return lclsrvrFolder.getAbsolutePath();
-			}
-		};
-		return aa;
-	}
-
-	private GererAnnonceAudio gererAnnonceAudio_DownloadError()
-			throws IOException {
-
-		GererAnnonceAudio aa = new GererAnnonceAudio() {
-		};
-		return aa;
-	}
 }

@@ -15,22 +15,10 @@ public class AudioFile {
 	//========================================
 	// Constructeurs
 	
-	public AudioFile(){
-		this.name = "";
-		this.format = "";
-		this.binary = null; 
-	}
-	
 	public AudioFile(String fileName, String format){
 		this.name = fileName;
 		this.format = format;
 		this.binary = null; 
-	}
-
-	public AudioFile(String fileName, String format, byte[] binary){
-		this.name = fileName;
-		this.format = format;
-		this.binary = binary; 
 	}
 
 	//========================================

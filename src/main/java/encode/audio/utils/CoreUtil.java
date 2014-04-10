@@ -55,23 +55,6 @@ public final class CoreUtil {
 	public static final String INFODIO = EnumTypeEquipement.infodio.toString();
 	public static final String WCA = EnumTypeEquipement.wca.toString();
 
-	/**
-	 * Constructeur
-	 */
-	private CoreUtil(){
-
-	}
-
-	/**
-	 *
-	 * @return PscsCoreUtil
-	 */
-	public static synchronized CoreUtil getInstance() {
-		if (instance == null) {
-			instance = new CoreUtil();
-		}
-		return instance;
-	}
 
 	public static final String HEADER_ERROR = "ErrorPSCS: ";
 
