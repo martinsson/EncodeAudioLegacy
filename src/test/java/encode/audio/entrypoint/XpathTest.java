@@ -35,7 +35,7 @@ public class XpathTest {
 		
 		IAnnonceAudioTmlg annonceAudio = readXml(fileContent);
 		assertThat(annonceAudio.getFileName()).startsWith("10.151.156.180Mon_Nov_04_140724_CET_2013343.");
-		assertThat(annonceAudio.getUrl()).isEqualTo("null10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3");
+		assertThat(annonceAudio.getUrl()).isEqualTo("http://localhost:12306/10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3");
 		assertThat(annonceAudio.getFormat()).isEqualTo("mp3");
 	}
 

@@ -150,7 +150,7 @@ public class GererAnnonceAudio{
 	}
 
 
-	public byte[] downloadAudioFileFromHttpServer(String fileUrl) throws CoreException {
+	private byte[] downloadAudioFileFromHttpServer(String fileUrl) throws CoreException {
 		return HttpRequestFactory.getFileFromHttpServer(fileUrl);
 	}
 	

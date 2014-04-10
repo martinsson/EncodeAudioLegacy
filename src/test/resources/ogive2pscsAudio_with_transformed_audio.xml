@@ -24,7 +24,7 @@
         <bool name="boutonDiffuser" val="false" status="ok"/>
         <str name="fileName" val="10.151.156.180Mon_Nov_04_140724_CET_2013343.{{SOURCEFORMAT}}" status="ok"/>
         <str name="format" val="mp3" status="ok"/>
-        <str name="url" val="null10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3" status="ok"/>
+        <str name="url" val="http://localhost:12306/10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3" status="ok"/>
       </obj>
     </obj>
   </obj>

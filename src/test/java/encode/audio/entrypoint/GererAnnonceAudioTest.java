@@ -1,6 +1,10 @@
 package encode.audio.entrypoint;
 
+
+import static org.fest.assertions.api.Assertions.assertThat;
 import static org.mockito.Matchers.anyString;
+import static com.github.dreamhead.moco.Moco.*;
+import static com.github.dreamhead.moco.Runner.runner;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,8 +12,12 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.http.client.fluent.Content;
+import org.apache.http.client.fluent.Request;
 import org.approvaltests.legacycode.LegacyApprovals;
 import org.approvaltests.reporters.UseReporter;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
@@ -19,6 +27,9 @@ import org.mockito.stubbing.Answer;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+
+import com.github.dreamhead.moco.HttpServer;
+import com.github.dreamhead.moco.Runner;
 
 import templating.TemplateEngine;
 import templating.mustache.MustacheTemplateEngine;
@@ -30,6 +41,7 @@ import flux.ObixTmlgExeption;
 @PrepareForTest(Mp3Encoder.class)
 public class GererAnnonceAudioTest {
 
+    
 	private static final String TEST_MP3_FILENAME = "test.mp3";
 	private static final Object[] ALL_BOOLEAN_VALUES = { true, false };
 
@@ -65,6 +77,8 @@ public class GererAnnonceAudioTest {
 		Object[] encoding = ALL_BOOLEAN_VALUES;
 		Object[] destAudioFileUC = { new UC_DestAudioFile_NotAlreadyEncoded(),
 				new UC_DestAudioFile_AlreadyEncoded(TEST_MP3_FILENAME) };
+		
+        server.response(with(file("./src/test/resources/10.151.156.180Mon_Nov_04_140724_CET_2013343.wav")));
 
 		LegacyApprovals.LockDown(this,
 				"default_GererAnnonceAudioCatchExceptions", encodingActivated,
@@ -152,24 +166,7 @@ public class GererAnnonceAudioTest {
 			throws IOException {
 		GererAnnonceAudio aa = new GererAnnonceAudio() {
 			@Override
-			public byte[] downloadAudioFileFromHttpServer(String fileUrl)
-					throws CoreException {
-				try {
-					InputStream resource = getClass()
-							.getClassLoader()
-							.getResourceAsStream(
-									"10.151.156.180Mon_Nov_04_140724_CET_2013343.wav");
-					byte[] bts = new byte[1000000];
-					resource.read(bts);
-					return bts;
-				} catch (Exception e) {
-					throw new CoreException(e);
-				}
-			}
-
-			@Override
 			protected String getLocalServerFolder() {
-
 				return "/no/local/server/folder";
 			}
 		};
@@ -199,6 +196,20 @@ public class GererAnnonceAudioTest {
 		}
 	}
 
+    private Runner runner;
+    HttpServer server = httpserver(12306);
+
+    @Before
+    public void setuphttp() {
+        runner = runner(server);
+        runner.start();
+    }
+
+    @After
+    public void tearDown() {
+        runner.stop();
+    }
+    
 	public String default_GererAnnonceAudioCatchExceptions(
 			Boolean encodingActivated, String audioExtension, Integer bitrate,
 			String conversionBinaryName, Boolean encodingSuccess,
@@ -341,21 +352,6 @@ public class GererAnnonceAudioTest {
 		lclsrvrFolder.mkdir();
 
 		GererAnnonceAudio aa = new GererAnnonceAudio() {
-			@Override
-			public byte[] downloadAudioFileFromHttpServer(String fileUrl)
-					throws CoreException {
-				try {
-					InputStream resource = getClass()
-							.getClassLoader()
-							.getResourceAsStream(
-									"10.151.156.180Mon_Nov_04_140724_CET_2013343.wav");
-					byte[] bts = new byte[1000000];
-					resource.read(bts);
-					return bts;
-				} catch (Exception e) {
-					throw new CoreException(e);
-				}
-			}
 
 			@Override
 			protected String getLocalServerFolder() {
@@ -370,11 +366,6 @@ public class GererAnnonceAudioTest {
 			throws IOException {
 
 		GererAnnonceAudio aa = new GererAnnonceAudio() {
-			@Override
-			public byte[] downloadAudioFileFromHttpServer(String fileUrl)
-					throws CoreException {
-				throw new CoreException("cant download");
-			}
 		};
 		return aa;
 	}
