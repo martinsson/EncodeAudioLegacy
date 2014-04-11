@@ -14,7 +14,7 @@ public final class CoreUtil {
 	private static LogService logger = new DummyLogService();
 
 	/**
-	 * Constructeur
+	 * Constructor
 	 */
 	private CoreUtil() {
 
