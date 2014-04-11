@@ -1,19 +1,16 @@
 package encode.audio.entrypoint;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 
 import encode.audio.utils.AudioFile;
 import encode.audio.utils.CoreException;
-import encode.audio.utils.DummyLogService;
-import encode.audio.utils.HttpRequestUtil;
-import encode.audio.utils.LogService;
 import encode.audio.utils.CoreUtil;
+import encode.audio.utils.DummyLogService;
+import encode.audio.utils.LogService;
+import flux.AudioAnnounceTmlg;
 import flux.FluxTmlg;
 import flux.IAudioAnnounceTmlg;
 import flux.IFluxTmlg;
-import flux.ObixTmlgExeption;
 
 public class AudioAnnounceEngine {
 
@@ -24,20 +21,23 @@ public class AudioAnnounceEngine {
 	private DataObject audioConfig;
 	private DataObject httpConfig;
 
-	/** The key to get the corresponding in DB. */
-	private final static String KEY_CONF_URL_AUDIO_FOLDER = "AUDIO.ANNOUNCE.FOLDER.URL";
+	private LocalHTTPSServer localHTTPSServer;
+	private LocalTmpFolder localTmpFolder;
 
-	public String publishAudioFile(String audioFileMessage, DataObject audioConfigTmp, DataObject httpConfigTmp) throws AppTechnicalException {
+	public AudioAnnounceEngine(LocalHTTPSServer localHTTPSServer, LocalTmpFolder localTmpFolder) {
+		super();
+		this.localHTTPSServer = localHTTPSServer;
+		this.localTmpFolder = localTmpFolder;
+	}
+
+	public String publishAudioFile(AudioAnnounceTmlg audioAnnounceTmlg, DataObject audioConfigTmp, DataObject httpConfigTmp) throws AppTechnicalException {
 		try {
 			this.audioConfig = audioConfigTmp;
 			this.httpConfig = httpConfigTmp;
-			IFluxTmlg targetAudioFileMessage;
-			targetAudioFileMessage = new FluxTmlg(audioFileMessage);
+			IFluxTmlg targetAudioFileMessage = new FluxTmlg(audioAnnounceTmlg);
 
-			AudioFile newAudioFile = null;
 			IAudioAnnounceTmlg audioAnnounce = targetAudioFileMessage.getBody().getTravelInfo().getAudioAnnounce();
-
-			newAudioFile = processAudioAnnounce(targetAudioFileMessage, audioAnnounce);
+			AudioFile newAudioFile = processAudioAnnounce(targetAudioFileMessage, audioAnnounce);
 
 			targetAudioFileMessage = updateAudioFileMessage(targetAudioFileMessage, newAudioFile);
 			return targetAudioFileMessage.toString();
@@ -58,10 +58,6 @@ public class AudioAnnounceEngine {
 				logger.log(LogService.LOG_ERROR, ex.getMessage());
 				throw new AppTechnicalException(CoreUtil.HTTP_UPLOAD_ERROR, ex);
 			}
-		} catch (ObixTmlgExeption e) {
-
-			logger.log(LogService.LOG_ERROR, e.getMessage());
-			throw new AppTechnicalException(CoreUtil.OBIX_FORMAT_ERROR);
 		} catch (Exception e) {
 			logger.log(LogService.LOG_ERROR, e.getMessage());
 			throw new AppTechnicalException(CoreUtil.HTTP_CONFIG_ERROR, e);
@@ -86,19 +82,17 @@ public class AudioAnnounceEngine {
 		AudioFile newAudioFile = CoreUtil.simulateEncodedAudioFileProperties(fileName, audioConfig.getString("final_audio_file_extension"));
 		String encodedFilename = newAudioFile.getName();
 
-		String localServerFolder = getLocalServerFolder();
-
-		if (verifAudioFileExistsOnServer(localServerFolder, encodedFilename)) {
+		if (localHTTPSServer.isAudioFileExistsOnServer(encodedFilename)) {
 			logger.log(LogService.LOG_DEBUG, "The audio file '" + encodedFilename + "' already exists on the HTTPS server");
 		} else {
 			logger.log(LogService.LOG_DEBUG, "The audio file '" + encodedFilename + "' does not exist on the HTTPS server");
-			File encodedAudioFile = new File(audioTempPath + encodedFilename);
-			if (encodedAudioFile.exists()) {
+
+			if (localTmpFolder.isAudioFileExistsOnTmpFolder(audioTempPath + encodedFilename)) {
 				logger.log(LogService.LOG_DEBUG, "The encoded audio file already exists locally");
 				download = true;
 				encode = true;
 			} else {
-				downnloadAudioFile(fileName, filePath, fileUrl);
+				downnloadAudioFile(localTmpFolder, fileName, filePath, fileUrl);
 				download = true;
 
 				logger.log(LogService.LOG_DEBUG, "Encoding audio file :" + filePath + " (path : " + httpConfig.getString("audio_temp_path") + ")");
@@ -106,17 +100,11 @@ public class AudioAnnounceEngine {
 				encode = true;
 			}
 
-			newAudioFile.setBinary(getAudioFileContent(newAudioFile.getName()));
-
 			// Uploading encoded audio file to HTTPS server
-			uploadAudioAnnounce(localServerFolder, newAudioFile);
+			uploadAudioAnnounce(localHTTPSServer, newAudioFile);
 		}
 
 		return newAudioFile;
-	}
-
-	protected String getLocalServerFolder() {
-		return "./src/test/resources/pscs";
 	}
 
 	/**
@@ -127,38 +115,26 @@ public class AudioAnnounceEngine {
 	 * @param filePath
 	 *
 	 * */
-	public void downnloadAudioFile(String fileName, String destinationfilePath, String fileUrl) throws CoreException {
-		File audioFile = new File(httpConfig.getString("audio_temp_path") + fileName);
-		if (audioFile.exists()) {
+	public void downnloadAudioFile(LocalTmpFolder localTmpFolder, String fileName, String destinationfilePath, String fileUrl) throws CoreException {
+		if (localTmpFolder.isAudioFileExistsOnTmpFolder(httpConfig.getString("audio_temp_path") + fileName)) {
 			logger.log(LogService.LOG_DEBUG, "the original audio file already exists in local: '" + httpConfig.getString("audio_temp_path") + fileName + "'");
-		}
-		else {
+		} else {
 			logger.log(LogService.LOG_DEBUG, "simulate downloading audio file: '" + httpConfig.getString("audio_temp_path") + fileName + "' to locally path: " + destinationfilePath);
+			Boolean downloadAudioFileSuccess = httpConfig.getBoolean(CoreUtil.DOWNLOAD_AUDIO_FILE_SUCCESS);
+			if (!downloadAudioFileSuccess)
+				throw new CoreException(CoreUtil.HTTP_DOWNLOAD_ERROR);
 		}
 	}
 
-	public byte[] downloadAudioFileFromHttpServer(String fileUrl) throws CoreException {
-		return HttpRequestUtil.getFileFromHttpServer(fileUrl);
-	}
-
-	public byte[] getAudioFileContent(String filename) throws CoreException {
-		try {
-			File newFile = new File(httpConfig.getString("audio_temp_path") + filename);
-			FileInputStream fileInputStream = new FileInputStream(newFile);
-			byte[] binaryFile = new byte[(int) newFile.length()];
-			fileInputStream.read(binaryFile);
-			logger.log(LogService.LOG_DEBUG, "Getting audio file date to send: OK");
-			fileInputStream.close();
-
-			return binaryFile;
-		} catch (IOException e) {
-			throw new CoreException("Error when getting audio file date to send: " + httpConfig.getString("audio_temp_path") + filename, e);
-		}
-	}
-
-	public void uploadAudioAnnounce(String localServerFolder, AudioFile newAudioFile) throws IOException {
+	public void uploadAudioAnnounce(LocalHTTPSServer localServerFolder, AudioFile newAudioFile) throws IOException, CoreException {
 		logger.log(LogService.LOG_DEBUG, "Uploading audio file to HTTPS server");
-		FileUtils.postFile(localServerFolder, newAudioFile.getName(), newAudioFile.getBinary());
+		localServerFolder.uploadAudioAnnounce(newAudioFile.getName());
+		Boolean htpp_UploadSuccess = httpConfig.getBoolean(CoreUtil.HTTP_UPLOAD_SUCCESS);
+		if (!htpp_UploadSuccess)
+			throw new CoreException(CoreUtil.HTTP_UPLOAD_ERROR);
+		Boolean htppConfigSuccess = httpConfig.getBoolean(CoreUtil.HTTP_CONFIG_SUCCESS);
+		if (!htppConfigSuccess)
+			throw new IOException(CoreUtil.HTTP_CONFIG_ERROR);
 		logger.log(LogService.LOG_DEBUG, "Uploading audio file to HTTPS server : OK");
 	}
 
@@ -172,25 +148,4 @@ public class AudioAnnounceEngine {
 		logger.log(LogService.LOG_DEBUG, "Send message oBix to the adaptor: " + flux.toString());
 		return flux;
 	}
-
-	/**
-	 * Check if a audio file exists on the server.
-	 *
-	 * @param localServerFolder
-	 *            the url where to look for the file
-	 * @param fileName
-	 *            the name of the file
-	 * @return true if the file exists, else false
-	 */
-	public boolean verifAudioFileExistsOnServer(String localServerFolder, String fileName) {
-		boolean isFileExist = false;
-		if (localServerFolder != null) {
-			// Add a / at the end of the path if not present
-			localServerFolder = FileUtils.checkPath(localServerFolder);
-			isFileExist = FileUtils.isFileExist(localServerFolder + fileName);
-		}
-
-		return isFileExist;
-	}
-
 }

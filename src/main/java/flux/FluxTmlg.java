@@ -4,10 +4,9 @@ public class FluxTmlg implements IFluxTmlg {
 
 	private IBodyTmlg body;
 
-	public FluxTmlg(String message) throws ObixTmlgExeption {
+	public FluxTmlg(AudioAnnounceTmlg audioAnnounceTmlg) {
 
-		try {
-			final IAudioAnnounceTmlg audioAnnounce = new AudioAnnounceTmlg(message);
+			final IAudioAnnounceTmlg audioAnnounce = new AudioAnnounceTmlg(audioAnnounceTmlg);
 			final ITravelInfoTmlg travelInfo = new ITravelInfoTmlg() {
 
 				public IAudioAnnounceTmlg getAudioAnnounce() {
@@ -25,11 +24,6 @@ public class FluxTmlg implements IFluxTmlg {
 					return audioAnnounce.toString();
 				}
 			};
-		} catch (Exception e) {
-			ObixTmlgExeption oe = new ObixTmlgExeption();
-			oe.initCause(e);
-			throw oe;
-		}
 	}
 
 	public IBodyTmlg getBody() {

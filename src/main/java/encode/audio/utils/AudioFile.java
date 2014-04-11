@@ -6,12 +6,6 @@ public class AudioFile {
 	private String format;
 	private byte[] binary;
 
-	public AudioFile() {
-		this.name = "";
-		this.format = "";
-		this.binary = null;
-	}
-
 	public AudioFile(String fileName, String format) {
 		this.name = fileName;
 		this.format = format;

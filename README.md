@@ -3,7 +3,7 @@ Your are involve in a new project called encode audio. As this project starts to
 
 The futur of the project is in your hand. Good luck!
 
-# Step 0: "prise de contact" and first steps 
+# Step 0: first steps 
 In order to reduce the complexity, you start with a simplify version of the project. First, take a look of the legacy code and try to understand what it is doing. 
 
 Then initialize you environnement in order to be able to build the project, launch a unit test, have a look to the code coverage.

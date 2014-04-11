@@ -4,38 +4,52 @@ import java.util.HashMap;
 
 import encode.audio.entrypoint.DataObject;
 import encode.audio.utils.Configurations;
-
+import encode.audio.utils.CoreUtil;
 
 public class AudioDataObject implements DataObject {
 
-	private boolean encodingActivated;
-	private String audioExtension;
+	private final boolean encodingActivated;
+	private final boolean mp3encoderSuccess;
+	private final HashMap<String, String> values;
 
+	public AudioDataObject(String tagetAudioFileExtension) {
+		this(true, true, tagetAudioFileExtension);
+	}
 
-	public AudioDataObject(Boolean encodingActivated, String audioExtension) {
-		this.audioExtension = audioExtension;
+	public AudioDataObject(Boolean encodingActivated, Boolean mp3encoderSuccess, String tagetAudioFileExtension) {
+		this(encodingActivated, mp3encoderSuccess, tagetAudioFileExtension, "128", "4");
+	}
+
+	public AudioDataObject(String tagetAudioFileExtension, String encodingBitrate, String encodingVbrQuality) {
+		this(true, true, tagetAudioFileExtension, encodingBitrate, encodingVbrQuality);
+	}
+
+	public AudioDataObject(Boolean encodingActivated, Boolean mp3encoderSuccess, String tagetAudioFileExtension, String encodingBitrate, String encodingVbrQuality) {
 		this.encodingActivated = encodingActivated;
+		this.mp3encoderSuccess = mp3encoderSuccess;
+		this.values = new HashMap<String, String>();
+		this.values.put(Configurations.ENCODING_BITRATE, encodingBitrate);
+		this.values.put(Configurations.FINAL_AUDIO_FILE_EXTENSION, tagetAudioFileExtension);
+		this.values.put(Configurations.PATH_PROGRAM_EXE, "/usr/local/bin/lame");
+		this.values.put(Configurations.ENCODING_VBR_QUALITY, encodingVbrQuality);
 	}
 
-	public String getString(String arg0) {
-		HashMap<String, String> values = new HashMap<String, String>() {{
-			// Configurations.ENCODING_BITRATE, Configurations.FINAL_AUDIO_FILE_EXTENSION, Configurations.PATH_PROGRAM_EXE
-			// Configurations.ENCODING_ACTIVATE,
-			put(Configurations.ENCODING_BITRATE,"128");
-			put(Configurations.FINAL_AUDIO_FILE_EXTENSION, ".mp3");
-			put(Configurations.PATH_PROGRAM_EXE, "/usr/local/bin/lame");
-			put(Configurations.ENCODING_VBR_QUALITY, "4");
-		}
-			
-		};
-		return values.get(arg0);
-	}
+	public String getString(String key) {
+		String value = values.get(key);
+		if (key != null)
+			return value;
 
+		throw new RuntimeException("didnt expect " + key);
+	}
 
 	public boolean getBoolean(String key) {
-		if (key.equals(Configurations.ENCODING_ACTIVATE))
+		switch (key) {
+		case Configurations.ENCODING_ACTIVATE:
 			return encodingActivated;
-		else 
+		case CoreUtil.MP3ENCODER_SUCESS:
+			return mp3encoderSuccess;
+		default:
 			throw new RuntimeException("didnt expect " + key);
+		}
 	}
 }
