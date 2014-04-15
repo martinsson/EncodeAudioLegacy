@@ -1,0 +1,1 @@
+This directory aims to define the LocalServerFolder for testing purpose.
