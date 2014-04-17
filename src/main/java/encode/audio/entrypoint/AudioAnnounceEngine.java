@@ -1,7 +1,6 @@
 package encode.audio.entrypoint;
 
 import encode.audio.utils.AudioFile;
-import encode.audio.utils.CoreException;
 import encode.audio.utils.CoreUtil;
 import encode.audio.utils.DummyLogService;
 import encode.audio.utils.LogService;
@@ -11,9 +10,6 @@ import flux.IAudioAnnounceTmlg;
 import flux.IFluxTmlg;
 
 public class AudioAnnounceEngine {
-
-	private Boolean download = false;
-	private Boolean encode = false;
 
 	private LogService logger = new DummyLogService();
 	private DataObject audioConfig;
@@ -61,11 +57,9 @@ public class AudioAnnounceEngine {
 		logger.log(LogService.LOG_DEBUG, "The audio file '" + encodedFilename + "' does not exist on the HTTPS server");
 
 		downnloadAudioFile(localTmpFolder, fileName, filePath, fileUrl);
-		download = true;
 
 		logger.log(LogService.LOG_DEBUG, "Encoding audio file :" + filePath + " (path : " + httpConfig.getString("audio_temp_path") + ")");
 		newAudioFile = CoreUtil.encodeAudioFile(audioTempPath, fileName, audioConfig);
-		encode = true;
 
 		// Uploading encoded audio file to HTTPS server
 		uploadAudioAnnounce(localHTTPSServer, newAudioFile);

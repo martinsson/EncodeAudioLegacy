@@ -60,12 +60,8 @@ public final class CoreUtil {
 		String newFilename = fileNameWithoutExtension + finalEncodingAudioFileExtension;
 
 		String parameters = "";
-		if (!bitrate.equals("")) {
-			parameters = parameters.concat(" -b " + bitrate);
-		}
-		if (!vbrQuality.equals("")) {
-			parameters = parameters.concat(" -V " + vbrQuality);
-		}
+		parameters = parameters.concat(" -b " + bitrate);
+		parameters = parameters.concat(" -V " + vbrQuality);
 
 		String cmd = programExe + parameters + " " + path + fileName + " " + path + newFilename;
 
