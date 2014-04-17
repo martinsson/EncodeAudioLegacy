@@ -1,5 +1,11 @@
 package encode.audio.entrypoint;
 
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.spy;
+
+import java.io.IOException;
+
 import org.approvaltests.Approvals;
 import org.fest.assertions.api.Assertions;
 import org.junit.Test;
@@ -200,13 +206,14 @@ public class AudioAnnounceEngineTest {
 		DataObject configAudioTmp = new AudioDataObject(tagetAudioFileExtension);
 		DataObject httpDataObj = new HttpDataObj(downloadAudioFileSuccess, uploadAudioAnnounceSuccess, httpConfigSuccess,"./src/test/resources/", "http://localhost/get");
 
-		LocalHTTPSServer localServerFolder = new LocalHTTPSServer();
+		LocalHTTPSServer localServerFolder = spy(new LocalHTTPSServer());
+		doThrow(new IOException()).when(localServerFolder).uploadAudioAnnounce(anyString());
 		LocalTmpFolder localTmpFolder = new LocalTmpFolder();
 		AudioAnnounceEngine audioAnnounceEngine = new AudioAnnounceEngine(localServerFolder, localTmpFolder);
 
 		try {
 			// When
-			String flux = audioAnnounceEngine.publishAudioFile(audioFileMessage, configAudioTmp, httpDataObj);
+			audioAnnounceEngine.publishAudioFile(audioFileMessage, configAudioTmp, httpDataObj);
 			Assertions.fail("expected exception");
 		} catch (AppTechnicalException ate) {
 			// Then

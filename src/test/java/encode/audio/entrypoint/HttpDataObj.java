@@ -12,10 +12,10 @@ final class HttpDataObj implements DataObject {
 	private final Boolean httpConfigSuccess;
 
 	public HttpDataObj(String audioTempPath, String urlEmbarqueGet) {
-		this(true, true, true, urlEmbarqueGet, audioTempPath);
+		this(true, true, true, audioTempPath, urlEmbarqueGet);
 	}
 
-	public HttpDataObj(Boolean downloadAudioFileSuccess, Boolean httpUploadSuccess, Boolean httpConfigSuccess, String urlEmbarqueGet, String audioTempPath) {
+	public HttpDataObj(Boolean downloadAudioFileSuccess, Boolean httpUploadSuccess, Boolean httpConfigSuccess, String audioTempPath, String urlEmbarqueGet) {
 		this.downloadAudioFileSuccess = downloadAudioFileSuccess;
 		this.httpUploadSuccess = httpUploadSuccess;
 		this.httpConfigSuccess = httpConfigSuccess;

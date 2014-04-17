@@ -128,10 +128,12 @@ public class AudioAnnounceEngine {
 
 	public void uploadAudioAnnounce(LocalHTTPSServer localServerFolder, AudioFile newAudioFile) throws IOException, CoreException {
 		logger.log(LogService.LOG_DEBUG, "Uploading audio file to HTTPS server");
-		localServerFolder.uploadAudioAnnounce(newAudioFile.getName());
-		Boolean htpp_UploadSuccess = httpConfig.getBoolean(CoreUtil.HTTP_UPLOAD_SUCCESS);
-		if (!htpp_UploadSuccess)
-			throw new CoreException(CoreUtil.HTTP_UPLOAD_ERROR);
+		try {
+            localServerFolder.uploadAudioAnnounce(newAudioFile.getName());
+        } catch (IOException e) {
+//            throw new CoreException(e);
+            throw new CoreException(CoreUtil.HTTP_UPLOAD_ERROR);
+        }
 		logger.log(LogService.LOG_DEBUG, "Uploading audio file to HTTPS server : OK");
 	}
 
