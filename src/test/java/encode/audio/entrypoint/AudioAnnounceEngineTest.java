@@ -214,29 +214,4 @@ public class AudioAnnounceEngineTest {
 		}
 	}
 
-	@Test
-	public void coverageAudioAnnounceEngine_the_core_layer_cannot_download_the_web_server_configuration() throws Exception {
-		// Given
-		String tagetAudioFileExtension = ".mp3";
-		Boolean downloadAudioFileSuccess = true;
-		Boolean uploadAudioAnnounceSuccess = true;
-		Boolean httpConfigSuccess = false;
-
-		AudioAnnounceTmlg audioFileMessage = new AudioAnnounceTmlg("null10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3", "mp3", "10.151.156.180Mon_Nov_04_140724_CET_2013343.wav");
-		DataObject configAudioTmp = new AudioDataObject(tagetAudioFileExtension);
-		DataObject httpDataObj = new HttpDataObj(downloadAudioFileSuccess, uploadAudioAnnounceSuccess, httpConfigSuccess,"./src/test/resources/", "http://localhost/get");
-
-		LocalHTTPSServer localServerFolder = new LocalHTTPSServer();
-		LocalTmpFolder localTmpFolder = new LocalTmpFolder();
-		AudioAnnounceEngine audioAnnounceEngine = new AudioAnnounceEngine(localServerFolder, localTmpFolder);
-
-		try {
-			// When
-			String flux = audioAnnounceEngine.publishAudioFile(audioFileMessage, configAudioTmp, httpDataObj);
-			Assertions.fail("expected exception");
-		} catch (AppTechnicalException ate) {
-			// Then
-			Approvals.verify(ate.getMessage());
-		}
-	}
 }

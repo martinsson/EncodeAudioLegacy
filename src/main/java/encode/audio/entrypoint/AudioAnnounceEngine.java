@@ -132,9 +132,6 @@ public class AudioAnnounceEngine {
 		Boolean htpp_UploadSuccess = httpConfig.getBoolean(CoreUtil.HTTP_UPLOAD_SUCCESS);
 		if (!htpp_UploadSuccess)
 			throw new CoreException(CoreUtil.HTTP_UPLOAD_ERROR);
-		Boolean htppConfigSuccess = httpConfig.getBoolean(CoreUtil.HTTP_CONFIG_SUCCESS);
-		if (!htppConfigSuccess)
-			throw new IOException(CoreUtil.HTTP_CONFIG_ERROR);
 		logger.log(LogService.LOG_DEBUG, "Uploading audio file to HTTPS server : OK");
 	}
 
