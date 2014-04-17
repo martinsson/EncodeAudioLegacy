@@ -36,10 +36,6 @@ final class HttpDataObj implements DataObject {
 		switch (key) {
 		case CoreUtil.DOWNLOAD_AUDIO_FILE_SUCCESS:
 			return downloadAudioFileSuccess;
-		case CoreUtil.HTTP_UPLOAD_SUCCESS:
-			return httpUploadSuccess;
-		case CoreUtil.HTTP_CONFIG_SUCCESS:
-			return httpConfigSuccess;
 		default:
 			throw new RuntimeException("didnt expect " + key);
 		}
