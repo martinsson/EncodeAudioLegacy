@@ -8,17 +8,13 @@ import encode.audio.utils.CoreUtil;
 final class HttpDataObj implements DataObject {
 	private final boolean downloadAudioFileSuccess;
 	private final HashMap<String, String> values;
-	private final Boolean httpUploadSuccess;
-	private final Boolean httpConfigSuccess;
 
 	public HttpDataObj(String audioTempPath, String urlEmbarqueGet) {
-		this(true, true, true, audioTempPath, urlEmbarqueGet);
+		this(true, audioTempPath, urlEmbarqueGet);
 	}
 
-	public HttpDataObj(Boolean downloadAudioFileSuccess, Boolean httpUploadSuccess, Boolean httpConfigSuccess, String audioTempPath, String urlEmbarqueGet) {
+	public HttpDataObj(Boolean downloadAudioFileSuccess, String audioTempPath, String urlEmbarqueGet) {
 		this.downloadAudioFileSuccess = downloadAudioFileSuccess;
-		this.httpUploadSuccess = httpUploadSuccess;
-		this.httpConfigSuccess = httpConfigSuccess;
 		this.values = new HashMap<String, String>();
 		this.values.put(Configurations.URL_EMBARQUE_SERVER_GET, urlEmbarqueGet);
 		this.values.put(Configurations.AUDIO_TEMP_PATH, audioTempPath);
