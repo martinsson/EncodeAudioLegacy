@@ -1,6 +1,5 @@
 package encode.audio.entrypoint;
 
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,11 +16,7 @@ public class LocalHTTPSServer {
 		audioFilesOnServer.add(fileName);
 	}
 
-	public boolean isAudioFileExistsOnServer(String encodedFilename) {
-		return audioFilesOnServer.contains(encodedFilename);
-	}
-
-	public void uploadAudioAnnounce(String audioAnnounceFileName) throws IOException {
+	public void uploadAudioAnnounce(String audioAnnounceFileName) {
 		addFile(audioAnnounceFileName);
 	}
 
