@@ -90,7 +90,10 @@ public final class CoreUtil {
 			else if (oldExtension.equals("mp3") && finalEncodingAudioFileExtension.equals(".wav")) {
 			    encodedData = encodeFromWavToMp3(fileData);
             }
-			else encodedData = null;
+			else {
+			    logger.log(LogService.LOG_ERROR, "encoding error, unsupported transformation from " + oldExtension + " to " + finalEncodingAudioFileExtension);
+			    return 1;
+			}
 			writeBytes(path, newFilename, encodedData);
 			exitValue = 0;
 		} catch (FileNotFoundException e) {
