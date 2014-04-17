@@ -87,10 +87,9 @@ public final class CoreUtil {
 			byte[] encodedData;
 			if (oldExtension.equals("wav") && finalEncodingAudioFileExtension.equals(".mp3"))
 			    encodedData = encodeBytes(fileData);
-//			else if (oldExtension.equals("mp3") && finalEncodingAudioFileExtension.equals(".wav")) {
-////			    encodedData = encodeBytes(fileData);
-//                
-//            }
+			else if (oldExtension.equals("mp3") && finalEncodingAudioFileExtension.equals(".wav")) {
+			    encodedData = encodeFromWavToMp3(fileData);
+            }
 			else encodedData = null;
 			writeBytes(path, newFilename, encodedData);
 			exitValue = 0;
@@ -105,7 +104,18 @@ public final class CoreUtil {
 		return exitValue;
 	}
 
-	protected static void writeBytes(String path, String newFilename, byte[] encodedData) throws FileNotFoundException, IOException {
+	private static byte[] encodeFromWavToMp3(byte[] fileData) {
+        byte[] encodedData = new byte[(int) fileData.length];
+        
+        // rotate data
+        encodedData[encodedData.length - 1] = fileData[0];
+        for (int i = 0; i < encodedData.length - 1; i++) {
+            encodedData[i] = fileData[i + 1];
+        }
+        return encodedData;
+    }
+
+    protected static void writeBytes(String path, String newFilename, byte[] encodedData) throws FileNotFoundException, IOException {
 		File newFile = new File(path + newFilename);
 		FileOutputStream fileInputStream = new FileOutputStream(newFile);
 		fileInputStream.write(encodedData);
