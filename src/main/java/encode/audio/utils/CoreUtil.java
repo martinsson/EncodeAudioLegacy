@@ -69,14 +69,14 @@ public final class CoreUtil {
 
 		logger.log(LogService.LOG_INFO, "Simulate Mp3Encoder.launchMp3Exec(" + cmd + ")");
 		String binaryCommand = programExe + parameters;
-		int exitValue = encodeFile(binaryCommand, path, fileName, newFilename);
+		int exitValue = encodeFile(binaryCommand, path, fileName, newFilename, oldExtension, finalEncodingAudioFileExtension);
 		logger.log(LogService.LOG_INFO, "End of the encoding audio file with return code: " + exitValue);
 
 		fileResult = new AudioFile(newFilename, finalEncodingAudioFileExtension.substring((finalEncodingAudioFileExtension.lastIndexOf(".") + 1)));
 		return fileResult;
 	}
 
-	protected static int encodeFile(String binaryCommand, String path, String fileName, String newFilename) {
+	protected static int encodeFile(String binaryCommand, String path, String fileName, String newFilename, String oldExtension, String finalEncodingAudioFileExtension) {
 
 		int exitValue;
 		try {
@@ -84,7 +84,14 @@ public final class CoreUtil {
 			logger.log(LogService.LOG_INFO, "Running the command: " + cmd);
 			logger.log(LogService.LOG_INFO, "Simulate Mp3Encoder.launchMp3Exec(" + cmd + ")");
 			byte[] fileData = readBytes(path, fileName);
-			byte[] encodedData = encodeBytes(fileData);
+			byte[] encodedData;
+			if (oldExtension.equals("wav") && finalEncodingAudioFileExtension.equals(".mp3"))
+			    encodedData = encodeBytes(fileData);
+//			else if (oldExtension.equals("mp3") && finalEncodingAudioFileExtension.equals(".wav")) {
+////			    encodedData = encodeBytes(fileData);
+//                
+//            }
+			else encodedData = null;
 			writeBytes(path, newFilename, encodedData);
 			exitValue = 0;
 		} catch (FileNotFoundException e) {
