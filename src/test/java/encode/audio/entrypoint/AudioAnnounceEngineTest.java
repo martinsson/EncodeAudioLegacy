@@ -82,7 +82,7 @@ public class AudioAnnounceEngineTest {
 
 		AudioAnnounceTmlg audioFileMessage = new AudioAnnounceTmlg("null10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3", "mp3", "10.151.156.180Mon_Nov_04_140724_CET_2013343.wav");
 		DataObject configAudioTmp = new AudioDataObject(encodingActivated, mp3encoderSuccess, tagetAudioFileExtension);
-		DataObject httpDataObj = new HttpDataObj("./src/test/resources/", "http://localhost/get");
+		DataObject httpDataObj = new HttpDataObj("./src/test/resources/nonexistingdirectory", "http://localhost/get");
 
 		LocalHTTPSServer localServerFolder = new LocalHTTPSServer();
 		LocalTmpFolder localTmpFolder = new LocalTmpFolder();
