@@ -1,9 +1,14 @@
 package encode.audio.entrypoint;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import encode.audio.utils.AudioFile;
 import encode.audio.utils.CoreException;
 import encode.audio.utils.CoreUtil;
 import encode.audio.utils.DummyLogService;
+import encode.audio.utils.HttpRequestFactory;
 import encode.audio.utils.LogService;
 import flux.AudioAnnounceTmlg;
 import flux.FluxTmlg;
@@ -64,7 +69,7 @@ public class AudioAnnounceEngine {
 
 		logger.log(LogService.LOG_DEBUG, "The audio file '" + encodedFilename + "' does not exist on the HTTPS server");
 
-		downnloadAudioFile(localTmpFolder, fileName, filePath, fileUrl);
+		downnloadAudioFile(fileName, filePath, fileUrl);
 
 		logger.log(LogService.LOG_DEBUG, "Encoding audio file :" + filePath + " (path : " + httpConfig.getString("audio_temp_path") + ")");
 		newAudioFile = CoreUtil.encodeAudioFile(audioTempPath, fileName, audioConfig);
@@ -83,9 +88,29 @@ public class AudioAnnounceEngine {
 	 * @param filePath
 	 *
 	 * */
-	public void downnloadAudioFile(LocalTmpFolder localTmpFolder, String fileName, String destinationfilePath, String fileUrl) {
-		logger.log(LogService.LOG_DEBUG, "simulate downloading audio file: '" + httpConfig.getString("audio_temp_path") + fileName + "' to locally path: " + destinationfilePath);
+	public void downnloadAudioFile(String fileName, String destinationfilePath, String fileUrl) throws CoreException{
+	    File audioFile = new File(httpConfig.getString("audio_temp_path") + fileName);
+	    // Le fichier audio originel existe en local sur la machine
+	    if(audioFile.exists()){
+	        logger.log(LogService.LOG_DEBUG, "Le fichier audio originel existe deje en local : '"+httpConfig.getString("audio_temp_path") +fileName+"'");
+	    }
+	    // Le fichier audio originel n'existe pas en local sur la machine
+	    else{
+	        // Recuperation du fichier audio et enregistrement temporaire pour encodage
+	        byte[] fileData = downloadAudioFileFromHttpServer(fileUrl);
+	        try {
+                CoreUtil.writeBytes(destinationfilePath, fileData);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+	    }
 	}
+
+
+	private byte[] downloadAudioFileFromHttpServer(String fileUrl) throws CoreException {
+	    return HttpRequestFactory.getFileFromHttpServer(fileUrl);
+	}
+
 
 	public void uploadAudioAnnounce(LocalHTTPSServer localServerFolder, AudioFile newAudioFile) {
 		logger.log(LogService.LOG_DEBUG, "Uploading audio file to HTTPS server");
