@@ -37,6 +37,8 @@ public class AudioAnnounceEngine {
             targetAudioFileMessage = updateAudioFileMessage(targetAudioFileMessage, newAudioFile);
             return targetAudioFileMessage.toString();
         } catch (CoreException e) {
+            
+            logger.log(LogService.LOG_ERROR, "Failed handling the file '" + audioAnnounce.getFileName() + "' ", e);
             throw new AppTechnicalException(e);
         }
 

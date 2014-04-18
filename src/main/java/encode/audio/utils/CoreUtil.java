@@ -76,6 +76,7 @@ public final class CoreUtil {
 		    fileResult = new AudioFile(newFilename, finalEncodingAudioFileExtension.substring((finalEncodingAudioFileExtension.lastIndexOf(".") + 1)));
 		    return fileResult;
 		} else {
+		    logger.log(LogService.LOG_ERROR, "Error while trying to encode " + fileName);
 		    throw new CoreException("Cant encode file!");
 		}
 
@@ -90,10 +91,15 @@ public final class CoreUtil {
 			logger.log(LogService.LOG_INFO, "Simulate Mp3Encoder.launchMp3Exec(" + cmd + ")");
 			byte[] fileData = readBytes(path, fileName);
 			byte[] encodedData;
-			if (oldExtension.equals("wav") && finalEncodingAudioFileExtension.equals(".mp3"))
-			    encodedData = encodeBytes(fileData);
+			if (oldExtension.equals("wav") && finalEncodingAudioFileExtension.equals(".mp3")) {
+			    
+			    logger.log(LogService.LOG_INFO, "encode from wav to mp3 : " + fileName);
+			
+			    encodedData = encodeBytes1(fileData);
+			}
 			else if (oldExtension.equals("mp3") && finalEncodingAudioFileExtension.equals(".wav")) {
-			    encodedData = encodeFromWavToMp3(fileData);
+			    logger.log(LogService.LOG_INFO, "encode from mp3 to wav : " + fileName);
+			    encodedData = encodeBytes2(fileData);
             }
 			else {
 			    logger.log(LogService.LOG_ERROR, "encoding error, unsupported transformation from " + oldExtension + " to " + finalEncodingAudioFileExtension);
@@ -112,7 +118,7 @@ public final class CoreUtil {
 		return exitValue;
 	}
 
-	private static byte[] encodeFromWavToMp3(byte[] fileData) {
+	private static byte[] encodeBytes2(byte[] fileData) {
         byte[] encodedData = new byte[(int) fileData.length];
         
         // rotate data
@@ -131,7 +137,7 @@ public final class CoreUtil {
 		fileInputStream.close();
 	}
 
-	protected static byte[] encodeBytes(byte[] fileData) {
+	protected static byte[] encodeBytes1(byte[] fileData) {
 		byte[] encodedData = new byte[(int) fileData.length];
 
 		// rotate data
