@@ -47,4 +47,22 @@ public class AudioAnnounceEngineTest {
 	    // Then
 	    Approvals.verify(flux);
 	}
+	
+	@Test(expected=AppTechnicalException.class)
+	public void coverageAudioAnnounceEngine_notsupported() throws Exception {
+	    // Given
+	    String tagetAudioFileExtension = ".ogg";
+	    
+	    AudioAnnounceTmlg audioFileMessage = new AudioAnnounceTmlg("null10.151.156.180Tue_Nov_05_141112_CET_2013343.ogg", "ogg", "10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3");
+	    DataObject configAudioTmp = new AudioDataObject(tagetAudioFileExtension);
+	    DataObject httpDataObj = new HttpDataObj("./src/test/resources/", "http://localhost/get");
+	    
+	    LocalHTTPSServer localServerFolder = new LocalHTTPSServer();
+	    LocalTmpFolder localTmpFolder = new LocalTmpFolder();
+	    AudioAnnounceEngine audioAnnounceEngine = new AudioAnnounceEngine(localServerFolder, localTmpFolder);
+	    
+	    // When
+	    String flux = audioAnnounceEngine.publishAudioFile(audioFileMessage, configAudioTmp, httpDataObj);
+	    
+	}
 }

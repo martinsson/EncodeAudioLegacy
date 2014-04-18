@@ -45,7 +45,7 @@ public final class CoreUtil {
 	 * @return AudioFile
 	 * @throws CoreException
 	 */
-	public synchronized static AudioFile encodeAudioFile(String path, String fileName, DataObject configAudio) {
+	public synchronized static AudioFile encodeAudioFile(String path, String fileName, DataObject configAudio) throws CoreException {
 		AudioFile fileResult = null;
 
 		String fileNameWithoutExtension = fileName.substring(0, fileName.lastIndexOf("."));
@@ -71,9 +71,14 @@ public final class CoreUtil {
 		String binaryCommand = programExe + parameters;
 		int exitValue = encodeFile(binaryCommand, path, fileName, newFilename, oldExtension, finalEncodingAudioFileExtension);
 		logger.log(LogService.LOG_INFO, "End of the encoding audio file with return code: " + exitValue);
+		
+		if (exitValue == 0 ) {
+		    fileResult = new AudioFile(newFilename, finalEncodingAudioFileExtension.substring((finalEncodingAudioFileExtension.lastIndexOf(".") + 1)));
+		    return fileResult;
+		} else {
+		    throw new CoreException("Cant encode file!");
+		}
 
-		fileResult = new AudioFile(newFilename, finalEncodingAudioFileExtension.substring((finalEncodingAudioFileExtension.lastIndexOf(".") + 1)));
-		return fileResult;
 	}
 
 	protected static int encodeFile(String binaryCommand, String path, String fileName, String newFilename, String oldExtension, String finalEncodingAudioFileExtension) {
