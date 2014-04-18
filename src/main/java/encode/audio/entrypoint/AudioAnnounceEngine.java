@@ -25,7 +25,7 @@ public class AudioAnnounceEngine {
 		this.localTmpFolder = localTmpFolder;
 	}
 
-	public String publishAudioFile(AudioAnnounceTmlg audioAnnounceTmlg, DataObject audioConfigTmp, DataObject httpConfigTmp) throws AppTechnicalException {
+	public IFluxTmlg publishAudioFile(AudioAnnounceTmlg audioAnnounceTmlg, DataObject audioConfigTmp, DataObject httpConfigTmp) throws AppTechnicalException {
 		this.audioConfig = audioConfigTmp;
 		this.httpConfig = httpConfigTmp;
 		IFluxTmlg targetAudioFileMessage = new FluxTmlg(audioAnnounceTmlg);
@@ -35,7 +35,7 @@ public class AudioAnnounceEngine {
         try {
             newAudioFile = processAudioAnnounce(targetAudioFileMessage, audioAnnounce);
             targetAudioFileMessage = updateAudioFileMessage(targetAudioFileMessage, newAudioFile);
-            return targetAudioFileMessage.toString();
+            return targetAudioFileMessage;
         } catch (CoreException e) {
             
             logger.log(LogService.LOG_ERROR, "Failed handling the file '" + audioAnnounce.getFileName() + "' ", e);
