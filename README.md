@@ -8,15 +8,12 @@ In order to reduce the complexity, you start with a simplify version of the proj
 
 Then initialize you environnement in order to be able to build the project, launch a unit test, have a look to the code coverage.
 
-At last, write unit tests to reach 100% code coverage. 
-
 # Time keeper
-You have 30 minutes!
+You have 15 minutes!
 
 ##Acceptance tests
 At the end of this step:
 
 1. I am able to build the project
-2. I can launch a unit test
+2. I can launch a unit test (red then green)
 3. I can see the code coverage
-4. I reach 100% code coverage
