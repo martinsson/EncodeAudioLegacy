@@ -5,7 +5,10 @@ import org.approvaltests.legacycode.LegacyApprovals;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.thoughtworks.xstream.XStream;
+
 import flux.AudioAnnounceTmlg;
+import flux.IFluxTmlg;
 
 public class AudioAnnounceEngineTest {
 
@@ -30,7 +33,8 @@ public class AudioAnnounceEngineTest {
         AudioAnnounceEngine audioAnnounceEngine = new AudioAnnounceEngine(localServerFolder, localTmpFolder);
 
         // When
-        return  audioAnnounceEngine.publishAudioFile(audioFileMessage, configAudioTmp, httpDataObj);
+        IFluxTmlg flux = audioAnnounceEngine.publishAudioFile(audioFileMessage, configAudioTmp, httpDataObj);
+        return new XStream().toXML(flux);
 
     } 
     
