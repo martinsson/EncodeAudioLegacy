@@ -1,6 +1,7 @@
 package encode.audio.entrypoint;
 
 import encode.audio.utils.AudioFile;
+import encode.audio.utils.CoreException;
 import encode.audio.utils.CoreUtil;
 import encode.audio.utils.DummyLogService;
 import encode.audio.utils.LogService;
@@ -24,16 +25,21 @@ public class AudioAnnounceEngine {
 		this.localTmpFolder = localTmpFolder;
 	}
 
-	public String publishAudioFile(AudioAnnounceTmlg audioAnnounceTmlg, DataObject audioConfigTmp, DataObject httpConfigTmp) {
+	public String publishAudioFile(AudioAnnounceTmlg audioAnnounceTmlg, DataObject audioConfigTmp, DataObject httpConfigTmp) throws AppTechnicalException {
 		this.audioConfig = audioConfigTmp;
 		this.httpConfig = httpConfigTmp;
 		IFluxTmlg targetAudioFileMessage = new FluxTmlg(audioAnnounceTmlg);
 
 		IAudioAnnounceTmlg audioAnnounce = targetAudioFileMessage.getBody().getTravelInfo().getAudioAnnounce();
-		AudioFile newAudioFile = processAudioAnnounce(targetAudioFileMessage, audioAnnounce);
+		AudioFile newAudioFile;
+        try {
+            newAudioFile = processAudioAnnounce(targetAudioFileMessage, audioAnnounce);
+            targetAudioFileMessage = updateAudioFileMessage(targetAudioFileMessage, newAudioFile);
+            return targetAudioFileMessage.toString();
+        } catch (CoreException e) {
+            throw new AppTechnicalException(e);
+        }
 
-		targetAudioFileMessage = updateAudioFileMessage(targetAudioFileMessage, newAudioFile);
-		return targetAudioFileMessage.toString();
 	}
 
 	/**
@@ -44,7 +50,7 @@ public class AudioAnnounceEngine {
 	 * @return AudioFile
 	 * @throws CoreException
 	 * */
-	public AudioFile processAudioAnnounce(IFluxTmlg flux, IAudioAnnounceTmlg audioAnnounce) {
+	public AudioFile processAudioAnnounce(IFluxTmlg flux, IAudioAnnounceTmlg audioAnnounce) throws CoreException {
 
 		String fileName = audioAnnounce.getFileName();
 		String fileUrl = audioAnnounce.getUrl();
