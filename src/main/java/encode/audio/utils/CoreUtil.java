@@ -129,14 +129,6 @@ public final class CoreUtil {
         return encodedData;
     }
 
-    protected static void writeBytes(String path, String newFilename, byte[] encodedData) throws FileNotFoundException, IOException {
-		File newFile = new File(path + newFilename);
-		FileOutputStream fileInputStream = new FileOutputStream(newFile);
-		fileInputStream.write(encodedData);
-		logger.log(LogService.LOG_DEBUG, "Getting audio file date to send: OK");
-		fileInputStream.close();
-	}
-
 	protected static byte[] encodeBytes1(byte[] fileData) {
 		byte[] encodedData = new byte[(int) fileData.length];
 
@@ -157,4 +149,18 @@ public final class CoreUtil {
 		fileInputStream.close();
 		return binaryFile;
 	}
+	
+	protected static void writeBytes(String path, String newFilename, byte[] encodedData) throws FileNotFoundException, IOException {
+	    String destinationfilePath = path + newFilename;
+	    writeBytes(destinationfilePath, encodedData);
+	}
+
+    public static void writeBytes(String destinationfilePath, byte[] fileData)  throws FileNotFoundException, IOException {
+        File newFile = new File(destinationfilePath);
+        FileOutputStream fileInputStream = new FileOutputStream(newFile);
+        fileInputStream.write(fileData);
+        logger.log(LogService.LOG_DEBUG, "Getting audio file date to send: OK");
+        fileInputStream.close();
+        
+    }
 }

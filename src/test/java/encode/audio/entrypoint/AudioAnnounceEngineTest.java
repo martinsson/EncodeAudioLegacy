@@ -1,16 +1,34 @@
 package encode.audio.entrypoint;
 
-import org.approvaltests.Approvals;
 import org.approvaltests.legacycode.LegacyApprovals;
-import org.junit.Ignore;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
+import com.github.dreamhead.moco.HttpServer;
+import static com.github.dreamhead.moco.Moco.*;
+import static com.github.dreamhead.moco.Runner.*;
 import com.thoughtworks.xstream.XStream;
 
 import flux.AudioAnnounceTmlg;
 import flux.IFluxTmlg;
 
 public class AudioAnnounceEngineTest {
+    
+    
+    private com.github.dreamhead.moco.Runner runner;
+    HttpServer server = httpserver(12306);
+
+    @Before
+    public void setuphttp() {
+        runner = runner(server);
+        runner.start();
+    }
+
+    @After
+    public void tearDown() {
+        runner.stop();
+    }
 
     @Test public void 
     coverageAudioAnnounceEnginLockdown() throws Exception {
