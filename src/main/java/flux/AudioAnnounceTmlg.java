@@ -16,7 +16,7 @@ public final class AudioAnnounceTmlg implements IAudioAnnounceTmlg {
 
 	public AudioAnnounceTmlg(String url, String format, String fileName) {
 		super();
-		this.url = url;
+		this.url = url + "." + format;
 		this.format = format;
 		this.fileName = fileName;
 	}
