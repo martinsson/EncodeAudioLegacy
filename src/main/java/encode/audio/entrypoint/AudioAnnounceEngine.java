@@ -123,7 +123,7 @@ public class AudioAnnounceEngine {
 
 		flux.getBody().getTravelInfo().getAudioAnnounce().setFileName(newAudioFile.getName());
 		flux.getBody().getTravelInfo().getAudioAnnounce().setFormat(newAudioFile.getFormat());
-		flux.getBody().getTravelInfo().getAudioAnnounce().setUrl(serverAudioEmbarqueURLGet + newAudioFile.getName());
+		flux.getBody().getTravelInfo().getAudioAnnounce().setUrl(serverAudioEmbarqueURLGet + "/" + newAudioFile.getName());
 
 		logger.log(LogService.LOG_DEBUG, "Send message oBix to the adaptor: " + flux.toString());
 		return flux;
