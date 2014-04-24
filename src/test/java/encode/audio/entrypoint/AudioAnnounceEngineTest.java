@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import com.github.dreamhead.moco.HttpServer;
+import com.google.common.base.Joiner;
 
 import static com.github.dreamhead.moco.Moco.*;
 import static com.github.dreamhead.moco.Runner.*;
@@ -25,7 +26,7 @@ public class AudioAnnounceEngineTest {
     
     private static final String BASE_URL_FOR_INITIAL_DOWNLOAD = "http://localhost:12306/";
     private com.github.dreamhead.moco.Runner runner;
-    HttpServer server = httpserver(12306, log());
+    HttpServer server = httpserver(12306);
     private static final String TEST_RESOURCE_DIR = "./src/test/resources/";
 
     @Before
@@ -59,7 +60,7 @@ public class AudioAnnounceEngineTest {
         
         
         String audioTempPath = tempFolder.getRoot().getAbsolutePath();
-        DataObject httpDataObj = new HttpDataObj(audioTempPath, "http://localhost/get");
+        DataObject httpDataObj = new HttpDataObj(audioTempPath + "/", "http://localhost/get");
         
         LocalHTTPSServer localServerFolder = new LocalHTTPSServer();
         LocalTmpFolder localTmpFolder = new LocalTmpFolder();
@@ -67,7 +68,11 @@ public class AudioAnnounceEngineTest {
 
         // When
         IFluxTmlg flux = audioAnnounceEngine.publishAudioFile(audioFileMessage, configAudioTmp, httpDataObj);
-        return new XStream().toXML(flux);
+        
+        // capture side effects, serialize and append it to return value
+        String outputXml = new XStream().toXML(flux);
+        String[] filenames = tempFolder.getRoot().list();
+        return outputXml + "\n" + Joiner.on('\n').join(filenames);
 
     } 
     
