@@ -71,9 +71,7 @@ public class AudioAnnounceEngineTest {
 
         // When
         IFluxTmlg availableEncodedAudioFile = audioAnnounceEngine.publishAudioFile(audioFileMessage, configAudioTmp, httpDataObj);
-		tempFolder.delete();
         return  new XStream().toXML(availableEncodedAudioFile);
 
     }
-
 }
