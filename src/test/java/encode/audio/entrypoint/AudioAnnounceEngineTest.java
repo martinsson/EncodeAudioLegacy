@@ -2,7 +2,6 @@ package encode.audio.entrypoint;
 
 import static com.github.dreamhead.moco.Moco.file;
 import static com.github.dreamhead.moco.Moco.httpserver;
-import static com.github.dreamhead.moco.Moco.log;
 import static com.github.dreamhead.moco.Moco.with;
 import static com.github.dreamhead.moco.Runner.runner;
 
@@ -10,8 +9,6 @@ import java.io.File;
 import java.io.IOException;
 
 import org.approvaltests.legacycode.LegacyApprovals;
-import org.approvaltests.reporters.ClipboardReporter;
-import org.approvaltests.reporters.UseReporter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -73,7 +70,11 @@ public class AudioAnnounceEngineTest {
         AudioAnnounceEngine audioAnnounceEngine = new AudioAnnounceEngine(localServerFolder.getAbsolutePath() + "/");
         // When
         IFluxTmlg flux = audioAnnounceEngine.publishAudioFile(audioFileMessage, configAudioTmp, httpDataObj);
-        return new XStream().toXML(flux);
+        
+        // capture side effects, serialize and append it to return value
+        String outputXml = new XStream().toXML(flux);
+        String[] filenames = tempFolder.getRoot().list();
+        return outputXml + "\n" + Joiner.on('\n').join(filenames);
 
     } 
     
