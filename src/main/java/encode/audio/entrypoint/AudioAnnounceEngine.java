@@ -38,7 +38,7 @@ public class AudioAnnounceEngine {
 
 	/**
 	 * process audio announce
-	 * 
+	 *
 	 * @param flux
 	 * @param audioAnnounce
 	 * @return AudioFile
@@ -54,10 +54,6 @@ public class AudioAnnounceEngine {
 		AudioFile newAudioFile = CoreUtil.simulateEncodedAudioFileProperties(fileName, audioConfig.getString("final_audio_file_extension"));
 		String encodedFilename = newAudioFile.getName();
 
-		logger.log(LogService.LOG_DEBUG, "The audio file '" + encodedFilename + "' does not exist on the HTTPS server");
-
-		downnloadAudioFile(localTmpFolder, fileName, filePath, fileUrl);
-
 		logger.log(LogService.LOG_DEBUG, "Encoding audio file :" + filePath + " (path : " + httpConfig.getString("audio_temp_path") + ")");
 		newAudioFile = CoreUtil.encodeAudioFile(audioTempPath, fileName, audioConfig);
 
@@ -65,18 +61,6 @@ public class AudioAnnounceEngine {
 		uploadAudioAnnounce(localHTTPSServer, newAudioFile);
 
 		return newAudioFile;
-	}
-
-	/**
-	 * Download the audio file if not already exists in the temp directory
-	 * 
-	 * @param fileName
-	 * @param fileUrl
-	 * @param filePath
-	 * 
-	 * */
-	public void downnloadAudioFile(LocalTmpFolder localTmpFolder, String fileName, String destinationfilePath, String fileUrl) {
-		logger.log(LogService.LOG_DEBUG, "simulate downloading audio file: '" + httpConfig.getString("audio_temp_path") + fileName + "' to locally path: " + destinationfilePath);
 	}
 
 	public void uploadAudioAnnounce(LocalHTTPSServer localServerFolder, AudioFile newAudioFile) {
