@@ -47,6 +47,9 @@ public class AudioAnnounceEngineTest {
          Object[] sourceFileNames = {REMOTE_AUDIO_FILE_NAME, "10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3"};
         Object[] targetFormats = {"wav", "mp3", "ogg"};
         Object[] finalUrls = { BASE_URL_FOR_INITIAL_DOWNLOAD + "10.151.156.180Mon_Nov_04_140724_CET_2013343", BASE_URL_FOR_INITIAL_DOWNLOAD + "10.151.156.180Tue_Nov_05_141112_CET_2013343"} ;
+
+        server.response(with(file(TEST_RESOURCE_DIR + "10.151.156.180Mon_Nov_04_140724_CET_2013343.wav") ));
+        
         LegacyApprovals.LockDown(this, "publishAudioFileVariations", targetFormats, finalUrls, sourceFileNames);
     }
     
