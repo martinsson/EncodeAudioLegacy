@@ -13,6 +13,8 @@ mvn install:install-file -Dfile=ApprovalTests/ApprovalTests.jar -DgroupId=com.gi
 * build mvn clean compile
 * There's one unit test, it should fail. Fix it.
 * Run code coverage you should have 0%
+# Time keeper
+You have 15 minutes!
 
 ##Acceptance tests
 At the end of this step:
