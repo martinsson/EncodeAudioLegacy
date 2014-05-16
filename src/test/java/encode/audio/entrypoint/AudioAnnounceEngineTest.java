@@ -24,7 +24,6 @@ import flux.IFluxTmlg;
 public class AudioAnnounceEngineTest {
     
     
-    private static final String BASE_URL_FOR_INITIAL_DOWNLOAD = "http://localhost:12306/";
     private com.github.dreamhead.moco.Runner runner;
     HttpServer server = httpserver(12306);
     private static final String TEST_RESOURCE_DIR = "./src/test/resources/";
@@ -49,6 +48,9 @@ public class AudioAnnounceEngineTest {
          Object[] sourceFileNames = {REMOTE_AUDIO_FILE_NAME, REMOTE_AUDIO_FILE_NAME2};
         Object[] targetFormats = {"wav", "mp3", "ogg"};
         Object[] finalUrls = { "10.151.156.180Mon_Nov_04_140724_CET_2013343", "10.151.156.180Tue_Nov_05_141112_CET_2013343"} ;
+
+        server.response(with(file(TEST_RESOURCE_DIR + "10.151.156.180Mon_Nov_04_140724_CET_2013343.wav") ));
+        
         LegacyApprovals.LockDown(this, "publishAudioFileVariations", targetFormats, finalUrls, sourceFileNames);
     }
 
