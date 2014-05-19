@@ -1,17 +1,9 @@
 package encode.audio.entrypoint;
 
 import org.approvaltests.Approvals;
-import org.fest.assertions.api.Assertions;
 import org.junit.Test;
 
 public class AudioAnnounceEngineTest {
-
-	@Test
-	public void coverageAudioAnnounceEngine() throws Exception {
-
-		// Then
-		Assertions.assertThat(Boolean.TRUE).isFalse();
-	}
 
 	@Test
 	// if the method cannot launch the default diff tools, try to set a
