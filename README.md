@@ -16,3 +16,6 @@ You have 15 minutes!
 At the end of this step:
 
 1. I reach ~100% code coverage
+
+##Hints
+- Create a second test with an REMOTE\_AUDIO\_FILE\_NAME that does not exist.
