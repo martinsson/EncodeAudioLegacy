@@ -8,12 +8,14 @@ In order to learn step by step, you start working with a simplified version of t
 
 Goal, verify your environment :
 
-* build mvn clean compile
-* There's one unit test, it should fail. Fix it.
-* Run code coverage you should have 0%
-
-# Time keeper
-You have 15 minutes!
+1. build mvn clean compile
+2. There's a unit test: checkJUnit(). 
+	1. It should fail. 
+	2. Fix it.
+3. Run code coverage you should have 0%
+4. There's a unit test: checkApprovalTestsReporter().
+	1. Remove @Ignore annotation
+	2. It should open a window corresponding to your default diff tool
 
 ##Acceptance tests
 At the end of this step:
@@ -21,6 +23,7 @@ At the end of this step:
 1. I am able to build the project
 2. I can launch a unit test
 3. I can see the code coverage
+4. Approval Tests is able to launch a diff tool
 
 # Step 2: Coverage by input parameter variation
 
