@@ -3,6 +3,15 @@ Your are involve in a new project called encode audio. As this project starts to
 
 The futur of the project is in your hand. Good luck!
 
+# Requirements
+* JDK 7.x  
+* Eclipse + EclEmma + m2e (or equivalent)
+* Maven 3.x
+* Diff-tool : for instance DiffMerge, WinMerge or Meld 
+* Git
+* Internet/Wifi (for downloading maven dependencies)
+  * Please do mvn clean compile beforehand
+
 # Step 0: first steps 
 In order to learn step by step, you start working with a simplified version of the project. 
 
@@ -25,18 +34,4 @@ At the end of this step:
 3. I can see the code coverage
 4. Approval Tests is able to launch a diff tool
 
-# Step 2: Coverage by input parameter variation
-
-Instead of the tests in place, take advantage of LegacyApprovals.lockdown() to generate 100% coverage. 
-
-Refactor out duplication between tests by extracting a helper method. It is going to take 3 arguments. Those are the arguments that have to be varied through the parameters passed in the lockdown method.
-
-##Acceptance tests
-At the end of this step:
-
-1. There is only one test method
-2. All branches (except IOException in CoreUtil)  are covered
-
-# Time keeper
-You have 20 minutes!
 
