@@ -1,7 +1,7 @@
 #Encode Audio Legacy
-Your are involve in a new project called encode audio. As this project starts to be to diffcult to maintain and evolve and you are the expert, you are in charge to refactor it. As a craftman, you decide to start by writing unit tests in order to reach 100% code coverage. But as usual, you have little time to do it : 4 hours max.
+You're involved in a new project called encode audio. As this project starts to be too diffcult to maintain and evolve you become the expert and you're in charge to save it through refactoring. As a craftman, you decide to start by writing unit tests in order to reach 100% code coverage. But as usual, you have little time to do it : a few hours max.
 
-The futur of the project is in your hand. Good luck!
+The future of the project is in your hands. Good luck!
 
 # Requirements
 * JDK 7.x  
