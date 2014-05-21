@@ -7,12 +7,14 @@ import flux.AudioAnnounceTmlg;
 
 public class AudioAnnounceEngineTest {
 
+	private static final String REMOTE_AUDIO_FILE_NAME = "10.151.156.180Mon_Nov_04_140724_CET_2013343.wav";
+
 	@Test
 	public void coverageAudioAnnounceEngine() throws Exception {
 		// Given
 		String tagetAudioFileExtension = ".mp3";
 
-		AudioAnnounceTmlg audioFileMessage = new AudioAnnounceTmlg("null10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3", "mp3", "10.151.156.180Mon_Nov_04_140724_CET_2013343.wav");
+		AudioAnnounceTmlg audioFileMessage = new AudioAnnounceTmlg("null10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3", "mp3", REMOTE_AUDIO_FILE_NAME);
 		DataObject configAudioTmp = new AudioDataObject(tagetAudioFileExtension);
 		DataObject httpDataObj = new HttpDataObj("./src/test/resources/", "http://localhost/get");
 
