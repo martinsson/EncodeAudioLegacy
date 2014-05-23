@@ -1,6 +1,7 @@
 package encode.audio.entrypoint;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -21,12 +22,12 @@ public class AudioAnnounceEngine {
 	private DataObject audioConfig;
 	private DataObject httpConfig;
 
-	private LocalHTTPSServer localHTTPSServer;
+	private String localServerFolder;
 	private LocalTmpFolder localTmpFolder;
 
-	public AudioAnnounceEngine(LocalHTTPSServer localHTTPSServer, LocalTmpFolder localTmpFolder) {
+	public AudioAnnounceEngine(String localServerFolder, LocalTmpFolder localTmpFolder) {
 		super();
-		this.localHTTPSServer = localHTTPSServer;
+		this.localServerFolder = localServerFolder;
 		this.localTmpFolder = localTmpFolder;
 	}
 
@@ -74,11 +75,28 @@ public class AudioAnnounceEngine {
 		logger.log(LogService.LOG_DEBUG, "Encoding audio file :" + filePath + " (path : " + httpConfig.getString("audio_temp_path") + ")");
 		newAudioFile = CoreUtil.encodeAudioFile(audioTempPath, fileName, audioConfig);
 
+		newAudioFile.setBinary(getAudioFileContent(newAudioFile.getName()));
 		// Uploading encoded audio file to HTTPS server
-		uploadAudioAnnounce(localHTTPSServer, newAudioFile);
+		uploadAudioAnnounce(localServerFolder, newAudioFile);
 
 		return newAudioFile;
 	}
+	
+	public byte[] getAudioFileContent(String filename) throws CoreException {
+	    try {
+		File newFile = new File(httpConfig.getString("audio_temp_path") + filename);
+		FileInputStream fileInputStream = new FileInputStream(newFile);
+		byte[] binaryFile = new byte[(int) newFile.length()];
+		fileInputStream.read(binaryFile);
+		logger.log(LogService.LOG_DEBUG, "Getting audio file date to send: OK");
+		fileInputStream.close();
+
+		return binaryFile;
+	    } catch (IOException e) {
+		throw new CoreException("Error when getting audio file date to send: " + httpConfig.getString("audio_temp_path") + filename, e);
+	    }
+	}
+
 
 	/**
 	 * Download the audio file if not already exists in the temp directory
@@ -112,9 +130,13 @@ public class AudioAnnounceEngine {
 	}
 
 
-	public void uploadAudioAnnounce(LocalHTTPSServer localServerFolder, AudioFile newAudioFile) {
+	public void uploadAudioAnnounce(String localServerFolder, AudioFile newAudioFile) throws CoreException  {
 		logger.log(LogService.LOG_DEBUG, "Uploading audio file to HTTPS server");
-		localServerFolder.uploadAudioAnnounce(newAudioFile.getName());
+		try {
+		    FileUtils.postFile(localServerFolder, newAudioFile.getName(), newAudioFile.getBinary());
+		} catch (IOException e) {
+		    throw new CoreException(e);
+		}
 		logger.log(LogService.LOG_DEBUG, "Uploading audio file to HTTPS server : OK");
 	}
 
