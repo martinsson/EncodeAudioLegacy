@@ -23,12 +23,10 @@ public class AudioAnnounceEngine {
 	private DataObject httpConfig;
 
 	private String localServerFolder;
-	private LocalTmpFolder localTmpFolder;
 
-	public AudioAnnounceEngine(String localServerFolder, LocalTmpFolder localTmpFolder) {
+	public AudioAnnounceEngine(String localServerFolder) {
 		super();
 		this.localServerFolder = localServerFolder;
-		this.localTmpFolder = localTmpFolder;
 	}
 
 	public IFluxTmlg publishAudioFile(AudioAnnounceTmlg audioAnnounceTmlg, DataObject audioConfigTmp, DataObject httpConfigTmp) throws AppTechnicalException {
