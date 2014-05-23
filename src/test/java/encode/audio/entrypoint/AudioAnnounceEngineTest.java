@@ -1,5 +1,6 @@
 package encode.audio.entrypoint;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.approvaltests.Approvals;
@@ -55,16 +56,16 @@ public class AudioAnnounceEngineTest {
         // Given
         AudioAnnounceTmlg audioFileMessage = new AudioAnnounceTmlg(HOST + finalUrl, targetFormat, sourceFileName);
         DataObject configAudioTmp = new AudioDataObject("." + targetFormat);
+        
         TemporaryFolder tempFolder = new TemporaryFolder();
         tempFolder.create();
-        
-        
         String audioTempPath = tempFolder.getRoot().getAbsolutePath();
         DataObject httpDataObj = new HttpDataObj(audioTempPath, "http://localhost/get");
 
-        LocalHTTPSServer localServerFolder = new LocalHTTPSServer();
-        LocalTmpFolder localTmpFolder = new LocalTmpFolder();
-        AudioAnnounceEngine audioAnnounceEngine = new AudioAnnounceEngine("./src/test/junk/", localTmpFolder);
+        File localServerFolder = tempFolder.newFolder("local_server_folder");
+        localServerFolder.mkdirs();
+        
+        AudioAnnounceEngine audioAnnounceEngine = new AudioAnnounceEngine(localServerFolder.getAbsolutePath());
 
         // When
         IFluxTmlg availableEncodedAudioFile = audioAnnounceEngine.publishAudioFile(audioFileMessage, configAudioTmp, httpDataObj);
