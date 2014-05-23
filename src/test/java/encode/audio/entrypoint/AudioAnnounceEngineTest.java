@@ -64,7 +64,7 @@ public class AudioAnnounceEngineTest {
 
         LocalHTTPSServer localServerFolder = new LocalHTTPSServer();
         LocalTmpFolder localTmpFolder = new LocalTmpFolder();
-        AudioAnnounceEngine audioAnnounceEngine = new AudioAnnounceEngine(localServerFolder, localTmpFolder);
+        AudioAnnounceEngine audioAnnounceEngine = new AudioAnnounceEngine("./src/test/junk/", localTmpFolder);
 
         // When
         IFluxTmlg availableEncodedAudioFile = audioAnnounceEngine.publishAudioFile(audioFileMessage, configAudioTmp, httpDataObj);
