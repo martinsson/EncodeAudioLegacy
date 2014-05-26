@@ -6,7 +6,7 @@ ECHO    ================== WARNING ==================
 ECHO    Don't forget to commit first the modifications you want to keep.
 ECHO    It will reset all changes and remove new files that are not under version control
 ECHO.
-SET /p choice=Back on to the Step 1 (y/n)? 
+SET /p choice=Back on to the Step 2 (y/n)? 
 IF /I '%choice%'=='y' GOTO next
 IF /I '%choice%'=='n' GOTO end
 ECHO "%choice%" is not valid, please reply y(es) or n(o)
@@ -19,8 +19,8 @@ ECHO === Reset and Clean your working directory
 git reset --hard
 git clean -fd
 ECHO.
-ECHO === Checkout Step 1
-git checkout Step1
+ECHO === Checkout Step 2
+git checkout Step2
 ECHO.
 GOTO end
 
