@@ -1,16 +1,19 @@
 package encode.audio.utils;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import encode.audio.entrypoint.DataObject;
 
 /**
  * Util class used by the business layer.
- * 
+ *
  * @author FOO
  * @version 1.0
  */
@@ -40,7 +43,7 @@ public final class CoreUtil {
 
     /**
      * Encoding an audio file to another format
-     * 
+     *
      * @param fileName
      * @return AudioFile
      * @throws CoreException
@@ -99,7 +102,7 @@ public final class CoreUtil {
 		    encodedData = encodeBytes1(fileData);
 		} else if (finalEncodingAudioFileExtension.equals(".zip")) {
 		    logger.log(LogService.LOG_INFO, "encode from mp3 to wav : " + fileName);
-		    encodedData = zip(fileData);
+		    encodedData = zip(fileData, fileName);
 		}
 		else {
 		    logger.log(LogService.LOG_ERROR, "encoding error, unsupported transformation from " + oldExtension + " to " + finalEncodingAudioFileExtension);
@@ -111,7 +114,7 @@ public final class CoreUtil {
 		    encodedData = encodeBytes2(fileData);
 		} else if (finalEncodingAudioFileExtension.equals(".zip")) {
 		    logger.log(LogService.LOG_INFO, "encode from mp3 to wav : " + fileName);
-		    encodedData = zip(fileData);
+		    encodedData = zip(fileData, fileName);
 		}
 		else {
 		    logger.log(LogService.LOG_ERROR, "encoding error, unsupported transformation from " + oldExtension + " to " + finalEncodingAudioFileExtension);
@@ -134,9 +137,16 @@ public final class CoreUtil {
 	return exitValue;
     }
 
-    private static byte[] zip(byte[] fileData) {
-	// TODO Auto-generated method stub
-	return null;
+    private static byte[] zip(byte[] fileData, String filename) throws IOException {
+    	ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    	ZipOutputStream zos = new ZipOutputStream(baos);
+    	ZipEntry entry = new ZipEntry(filename);
+    	entry.setSize(fileData.length);
+    	zos.putNextEntry(entry);
+    	zos.write(fileData);
+    	zos.closeEntry();
+    	zos.close();
+    	return baos.toByteArray();
     }
 
     private static byte[] encodeBytes2(byte[] fileData) {
