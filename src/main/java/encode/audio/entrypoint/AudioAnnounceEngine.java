@@ -25,7 +25,7 @@ public class AudioAnnounceEngine {
 		this.localTmpFolder = localTmpFolder;
 	}
 
-	public String publishAudioFile(AudioAnnounceTmlg audioAnnounceTmlg, DataObject audioConfigTmp, DataObject httpConfigTmp) throws AppTechnicalException {
+	public IFluxTmlg publishAudioFile(AudioAnnounceTmlg audioAnnounceTmlg, DataObject audioConfigTmp, DataObject httpConfigTmp) throws AppTechnicalException {
 		this.audioConfig = audioConfigTmp;
 		this.httpConfig = httpConfigTmp;
 		IFluxTmlg targetAudioFileMessage = new FluxTmlg(audioAnnounceTmlg);
@@ -35,9 +35,9 @@ public class AudioAnnounceEngine {
         try {
             newAudioFile = processAudioAnnounce(targetAudioFileMessage, audioAnnounce);
             targetAudioFileMessage = updateAudioFileMessage(targetAudioFileMessage, newAudioFile);
-            return targetAudioFileMessage.toString();
+            return targetAudioFileMessage;
         } catch (CoreException e) {
-            
+
             logger.log(LogService.LOG_ERROR, "Failed handling the file '" + audioAnnounce.getFileName() + "' ", e);
             throw new AppTechnicalException(e);
         }
@@ -46,7 +46,7 @@ public class AudioAnnounceEngine {
 
 	/**
 	 * process audio announce
-	 * 
+	 *
 	 * @param flux
 	 * @param audioAnnounce
 	 * @return AudioFile
@@ -77,11 +77,11 @@ public class AudioAnnounceEngine {
 
 	/**
 	 * Download the audio file if not already exists in the temp directory
-	 * 
+	 *
 	 * @param fileName
 	 * @param fileUrl
 	 * @param filePath
-	 * 
+	 *
 	 * */
 	public void downnloadAudioFile(LocalTmpFolder localTmpFolder, String fileName, String destinationfilePath, String fileUrl) {
 		logger.log(LogService.LOG_DEBUG, "simulate downloading audio file: '" + httpConfig.getString("audio_temp_path") + fileName + "' to locally path: " + destinationfilePath);
