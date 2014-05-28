@@ -4,6 +4,7 @@ import org.approvaltests.legacycode.LegacyApprovals;
 import org.junit.Test;
 
 import flux.AudioAnnounceTmlg;
+import flux.IFluxTmlg;
 
 public class AudioAnnounceEngineTest {
 
@@ -18,20 +19,21 @@ public class AudioAnnounceEngineTest {
         Object[] finalUrls = { "10.151.156.180Mon_Nov_04_140724_CET_2013343", "10.151.156.180Tue_Nov_05_141112_CET_2013343"} ;
         LegacyApprovals.LockDown(this, "publishAudioFileVariations", targetFormats, finalUrls, sourceFileNames);
     }
-    
+
     public String publishAudioFileVariations(String targetFormat, String finalUrl, String sourceFileName) throws AppTechnicalException {
         // Given
         AudioAnnounceTmlg audioFileMessage = new AudioAnnounceTmlg(HOST + finalUrl, targetFormat, sourceFileName);
         DataObject configAudioTmp = new AudioDataObject("." + targetFormat);
         DataObject httpDataObj = new HttpDataObj("./src/test/resources/", "http://localhost/get");
-        
+
         LocalHTTPSServer localServerFolder = new LocalHTTPSServer();
         LocalTmpFolder localTmpFolder = new LocalTmpFolder();
         AudioAnnounceEngine audioAnnounceEngine = new AudioAnnounceEngine(localServerFolder, localTmpFolder);
 
         // When
-        return  audioAnnounceEngine.publishAudioFile(audioFileMessage, configAudioTmp, httpDataObj);
+        IFluxTmlg availableEncodedAudioFile = audioAnnounceEngine.publishAudioFile(audioFileMessage, configAudioTmp, httpDataObj);
+        return  availableEncodedAudioFile.toString();
 
-    } 
-    
+    }
+
 }
