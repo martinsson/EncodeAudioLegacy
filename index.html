@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>EncodeAudioLegacy by martinsson</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>EncodeAudioLegacy</h1>
+        <p>Practice GoldenMaster on legacy with hard to test dependencies</p>
+
+        <p class="view"><a href="https://github.com/martinsson/EncodeAudioLegacy">View the Project on GitHub <small>martinsson/EncodeAudioLegacy</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/martinsson/EncodeAudioLegacy/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/martinsson/EncodeAudioLegacy/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/martinsson/EncodeAudioLegacy">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="instructions" class="anchor" href="#instructions"><span class="octicon octicon-link"></span></a>Instructions</h1>
+
+<p>First use the setup instructions available in the README at the <a href="https://github.com/martinsson/EncodeAudioLegacy">base of the repo</a>
+change between steps using changeStep.sh or nextStep.bat</p>
+
+<h2>
+<a name="step-1---string-comparison-using-approvaltests" class="anchor" href="#step-1---string-comparison-using-approvaltests"><span class="octicon octicon-link"></span></a>Step 1 - String comparison using ApprovalTests</h2>
+
+<p>Goal: Get familiar with ApprovalTests</p>
+
+<p>Acceptance Test : 
+You cover almost &gt; 95% of the code</p>
+
+<p>Bonus find a way of covering the FileNotFoundException</p>
+
+<h2>
+<a name="step-2-coverage-by-input-parameter-variation" class="anchor" href="#step-2-coverage-by-input-parameter-variation"><span class="octicon octicon-link"></span></a>Step 2: Coverage by input parameter variation</h2>
+
+<p>Goal: cover as many branches as possible in CoreUtil using LegacyApprovals.lockdown()</p>
+
+<p>There are tests in place, replace all of them with one single test and a test helper method. By varying the inputs you should be able to cover all but one catch clause in CoreUtil.</p>
+
+<h3>
+<a name="hints" class="anchor" href="#hints"><span class="octicon octicon-link"></span></a>Hints:</h3>
+
+<p>There are 3 arguments that vary</p>
+
+<p>there are files in src/test/resources that are used in the tests. You could add more of them, you could misspell a name.</p>
+
+<h2>
+<a name="acceptance-tests" class="anchor" href="#acceptance-tests"><span class="octicon octicon-link"></span></a>Acceptance tests</h2>
+
+<ol>
+<li>There is only one test method</li>
+<li>All branches (except IOException in CoreUtil)  are covered</li>
+</ol>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/martinsson">martinsson</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
