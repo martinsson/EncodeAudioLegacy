@@ -1,5 +1,5 @@
-[wav, http://localhost:12306/10.151.156.180Mon_Nov_04_140724_CET_2013343, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = java.lang.reflect.InvocationTargetException 
-[mp3, http://localhost:12306/10.151.156.180Mon_Nov_04_140724_CET_2013343, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = <flux.FluxTmlg>
+[wav, 10.151.156.180Mon_Nov_04_140724_CET_2013343, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = java.lang.reflect.InvocationTargetException 
+[mp3, 10.151.156.180Mon_Nov_04_140724_CET_2013343, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = <flux.FluxTmlg>
   <body class="flux.FluxTmlg$2">
     <outer-class reference="../.."/>
     <val_-travelInfo class="flux.FluxTmlg$1">
@@ -13,9 +13,9 @@
     <val_-audioAnnounce class="flux.AudioAnnounceTmlg" reference="../val_-travelInfo/val_-audioAnnounce"/>
   </body>
 </flux.FluxTmlg> 
-[ogg, http://localhost:12306/10.151.156.180Mon_Nov_04_140724_CET_2013343, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = java.lang.reflect.InvocationTargetException 
-[wav, http://localhost:12306/10.151.156.180Tue_Nov_05_141112_CET_2013343, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = java.lang.reflect.InvocationTargetException 
-[mp3, http://localhost:12306/10.151.156.180Tue_Nov_05_141112_CET_2013343, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = <flux.FluxTmlg>
+[ogg, 10.151.156.180Mon_Nov_04_140724_CET_2013343, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = java.lang.reflect.InvocationTargetException 
+[wav, 10.151.156.180Tue_Nov_05_141112_CET_2013343, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = java.lang.reflect.InvocationTargetException 
+[mp3, 10.151.156.180Tue_Nov_05_141112_CET_2013343, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = <flux.FluxTmlg>
   <body class="flux.FluxTmlg$2">
     <outer-class reference="../.."/>
     <val_-travelInfo class="flux.FluxTmlg$1">
@@ -29,8 +29,8 @@
     <val_-audioAnnounce class="flux.AudioAnnounceTmlg" reference="../val_-travelInfo/val_-audioAnnounce"/>
   </body>
 </flux.FluxTmlg> 
-[ogg, http://localhost:12306/10.151.156.180Tue_Nov_05_141112_CET_2013343, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = java.lang.reflect.InvocationTargetException 
-[wav, http://localhost:12306/10.151.156.180Mon_Nov_04_140724_CET_2013343, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = <flux.FluxTmlg>
+[ogg, 10.151.156.180Tue_Nov_05_141112_CET_2013343, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = java.lang.reflect.InvocationTargetException 
+[wav, 10.151.156.180Mon_Nov_04_140724_CET_2013343, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = <flux.FluxTmlg>
   <body class="flux.FluxTmlg$2">
     <outer-class reference="../.."/>
     <val_-travelInfo class="flux.FluxTmlg$1">
@@ -44,9 +44,9 @@
     <val_-audioAnnounce class="flux.AudioAnnounceTmlg" reference="../val_-travelInfo/val_-audioAnnounce"/>
   </body>
 </flux.FluxTmlg> 
-[mp3, http://localhost:12306/10.151.156.180Mon_Nov_04_140724_CET_2013343, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = java.lang.reflect.InvocationTargetException 
-[ogg, http://localhost:12306/10.151.156.180Mon_Nov_04_140724_CET_2013343, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = java.lang.reflect.InvocationTargetException 
-[wav, http://localhost:12306/10.151.156.180Tue_Nov_05_141112_CET_2013343, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = <flux.FluxTmlg>
+[mp3, 10.151.156.180Mon_Nov_04_140724_CET_2013343, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = java.lang.reflect.InvocationTargetException 
+[ogg, 10.151.156.180Mon_Nov_04_140724_CET_2013343, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = java.lang.reflect.InvocationTargetException 
+[wav, 10.151.156.180Tue_Nov_05_141112_CET_2013343, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = <flux.FluxTmlg>
   <body class="flux.FluxTmlg$2">
     <outer-class reference="../.."/>
     <val_-travelInfo class="flux.FluxTmlg$1">
@@ -60,5 +60,5 @@
     <val_-audioAnnounce class="flux.AudioAnnounceTmlg" reference="../val_-travelInfo/val_-audioAnnounce"/>
   </body>
 </flux.FluxTmlg> 
-[mp3, http://localhost:12306/10.151.156.180Tue_Nov_05_141112_CET_2013343, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = java.lang.reflect.InvocationTargetException 
-[ogg, http://localhost:12306/10.151.156.180Tue_Nov_05_141112_CET_2013343, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = java.lang.reflect.InvocationTargetException 
+[mp3, 10.151.156.180Tue_Nov_05_141112_CET_2013343, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = java.lang.reflect.InvocationTargetException 
+[ogg, 10.151.156.180Tue_Nov_05_141112_CET_2013343, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = java.lang.reflect.InvocationTargetException 
