@@ -3,6 +3,8 @@ package encode.audio.entrypoint;
 import org.approvaltests.legacycode.LegacyApprovals;
 import org.junit.Test;
 
+import com.thoughtworks.xstream.XStream;
+
 import flux.AudioAnnounceTmlg;
 import flux.IFluxTmlg;
 
@@ -32,7 +34,7 @@ public class AudioAnnounceEngineTest {
 
         // When
         IFluxTmlg availableEncodedAudioFile = audioAnnounceEngine.publishAudioFile(audioFileMessage, configAudioTmp, httpDataObj);
-        return  availableEncodedAudioFile.toString();
+        return  new XStream().toXML(availableEncodedAudioFile);
 
     }
 
