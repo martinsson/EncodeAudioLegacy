@@ -1,6 +1,9 @@
 #Encode Audio Legacy
 You're involved in a new project called encode audio. As this project starts to be too diffcult to maintain and evolve you become the expert and you're in charge to save it through refactoring. As a craftman, you decide to start by writing unit tests in order to reach 100% code coverage. But as usual, you have little time to do it : a few hours max.
 
+Slides :[Workshop Slides](http://fr.slideshare.net/sanlaville/20140530-itakegolden-master)<br>
+Follow the setup instructions below, then find instructions for each step on the [Site](http://martinsson.github.io/EncodeAudioLegacy)
+
 The future of the project is in your hands. Good luck!
 
 # Requirements
