@@ -12,7 +12,7 @@ public class AudioAnnounceEngineTest {
 	private static final String HOST = "http://somehost/";
 	private static final String REMOTE_AUDIO_FILE_NAME = "10.151.156.180Mon_Nov_04_140724_CET_2013343.wav";
 
-	@Test public void 
+	@Test public void
     coverageAudioAnnounceEnginLockdown() throws Exception {
          Object[] sourceFileNames = {REMOTE_AUDIO_FILE_NAME, REMOTE_AUDIO_FILE_NAME2};
         Object[] targetFormats = {"wav", "mp3", "ogg"};
@@ -20,7 +20,7 @@ public class AudioAnnounceEngineTest {
         LegacyApprovals.LockDown(this, "publishAudioFileVariations", targetFormats, finalUrls, sourceFileNames);
     }
 
-    public String publishAudioFileVariations(String targetFormat, String finalUrl, String sourceFileName) throws AppTechnicalException {
+    public String publishAudioFileVariations(String targetFormat, String finalUrl, String sourceFileName) {
         // Given
         AudioAnnounceTmlg audioFileMessage = new AudioAnnounceTmlg(HOST + finalUrl, targetFormat, sourceFileName);
         DataObject configAudioTmp = new AudioDataObject("." + targetFormat);
@@ -31,7 +31,12 @@ public class AudioAnnounceEngineTest {
         AudioAnnounceEngine audioAnnounceEngine = new AudioAnnounceEngine(localServerFolder, localTmpFolder);
 
         // When
-        IFluxTmlg availableEncodedAudioFile = audioAnnounceEngine.publishAudioFile(audioFileMessage, configAudioTmp, httpDataObj);
+        IFluxTmlg availableEncodedAudioFile;
+		try {
+			availableEncodedAudioFile = audioAnnounceEngine.publishAudioFile(audioFileMessage, configAudioTmp, httpDataObj);
+		} catch (AppTechnicalException e) {
+			return e.getMessage();
+		}
         return  availableEncodedAudioFile.toString();
 
     }
