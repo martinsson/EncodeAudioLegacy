@@ -25,11 +25,15 @@ import flux.AudioAnnounceTmlg;
 import flux.IFluxTmlg;
 
 public class AudioAnnounceEngineTest {
-    
-    
+
+    private static final String BASE_URL_FOR_INITIAL_DOWNLOAD = "http://localhost:12306/";
+    private static final String HOST = "http://localhost:12306/";
+    private static final String TEST_RESOURCE_DIR = "./src/test/resources/";
+    private static final String REMOTE_AUDIO_FILE_NAME = "10.151.156.180Mon_Nov_04_140724_CET_2013343.wav";
+    private static final String REMOTE_AUDIO_FILE_NAME2 = "10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3";
+
     private com.github.dreamhead.moco.Runner runner;
     HttpServer server = httpserver(12306);
-    private static final String TEST_RESOURCE_DIR = "./src/test/resources/";
 
     @Before
     public void setuphttp() {
@@ -42,18 +46,14 @@ public class AudioAnnounceEngineTest {
         runner.stop();
     }
 
-	private static final String REMOTE_AUDIO_FILE_NAME2 = "10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3";
-	private static final String HOST = "http://localhost:12306/";
-	private static final String REMOTE_AUDIO_FILE_NAME = "10.151.156.180Mon_Nov_04_140724_CET_2013343.wav";
-    
-    @Test public void 
+    @Test public void
     coverageAudioAnnounceEnginLockdown() throws Exception {
-         Object[] sourceFileNames = {REMOTE_AUDIO_FILE_NAME, REMOTE_AUDIO_FILE_NAME2};
+        Object[] sourceFileNames = {REMOTE_AUDIO_FILE_NAME, REMOTE_AUDIO_FILE_NAME2};
         Object[] targetFormats = {"wav", "mp3", "ogg"};
         Object[] finalUrls = { "10.151.156.180Mon_Nov_04_140724_CET_2013343", "10.151.156.180Tue_Nov_05_141112_CET_2013343"} ;
 
         server.response(with(file(TEST_RESOURCE_DIR + "10.151.156.180Mon_Nov_04_140724_CET_2013343.wav") ));
-        
+
         LegacyApprovals.LockDown(this, "publishAudioFileVariations", targetFormats, finalUrls, sourceFileNames);
     }
 
@@ -61,7 +61,7 @@ public class AudioAnnounceEngineTest {
         // Given
         AudioAnnounceTmlg audioFileMessage = new AudioAnnounceTmlg(HOST + finalUrl, targetFormat, sourceFileName);
         DataObject configAudioTmp = new AudioDataObject("." + targetFormat);
-        
+
         TemporaryFolder tempFolder = new TemporaryFolder();
         tempFolder.create();
         String audioTempPath = tempFolder.getRoot().getAbsolutePath() + "/";
@@ -69,7 +69,7 @@ public class AudioAnnounceEngineTest {
 
         File localServerFolder = tempFolder.newFolder("local_server_folder");
         localServerFolder.mkdirs();
-        
+
         AudioAnnounceEngine audioAnnounceEngine = new AudioAnnounceEngine(localServerFolder.getAbsolutePath() + "/");
         // When
         IFluxTmlg availableEncodedAudioFile = audioAnnounceEngine.publishAudioFile(audioFileMessage, configAudioTmp, httpDataObj);
