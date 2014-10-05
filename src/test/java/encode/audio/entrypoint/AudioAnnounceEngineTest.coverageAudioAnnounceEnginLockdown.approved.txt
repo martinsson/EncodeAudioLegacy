@@ -1,12 +1,12 @@
-[wav, 10.151.156.180Mon_Nov_04_140724_CET_2013343, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = java.lang.reflect.InvocationTargetException 
+[wav, 10.151.156.180Mon_Nov_04_140724_CET_2013343, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = encode.audio.utils.CoreException: Cant encode file! 
 [mp3, 10.151.156.180Mon_Nov_04_140724_CET_2013343, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = FluxTmlg [body=AnnounceAudioTmlg [url=http://localhost/get10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3, format=mp3, fileName=10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3]] 
-[ogg, 10.151.156.180Mon_Nov_04_140724_CET_2013343, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = java.lang.reflect.InvocationTargetException 
-[wav, 10.151.156.180Tue_Nov_05_141112_CET_2013343, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = java.lang.reflect.InvocationTargetException 
+[ogg, 10.151.156.180Mon_Nov_04_140724_CET_2013343, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = encode.audio.utils.CoreException: Cant encode file! 
+[wav, 10.151.156.180Tue_Nov_05_141112_CET_2013343, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = encode.audio.utils.CoreException: Cant encode file! 
 [mp3, 10.151.156.180Tue_Nov_05_141112_CET_2013343, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = FluxTmlg [body=AnnounceAudioTmlg [url=http://localhost/get10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3, format=mp3, fileName=10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3]] 
-[ogg, 10.151.156.180Tue_Nov_05_141112_CET_2013343, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = java.lang.reflect.InvocationTargetException 
+[ogg, 10.151.156.180Tue_Nov_05_141112_CET_2013343, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = encode.audio.utils.CoreException: Cant encode file! 
 [wav, 10.151.156.180Mon_Nov_04_140724_CET_2013343, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = FluxTmlg [body=AnnounceAudioTmlg [url=http://localhost/get10.151.156.180Tue_Nov_05_141112_CET_2013343.wav, format=wav, fileName=10.151.156.180Tue_Nov_05_141112_CET_2013343.wav]] 
-[mp3, 10.151.156.180Mon_Nov_04_140724_CET_2013343, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = java.lang.reflect.InvocationTargetException 
-[ogg, 10.151.156.180Mon_Nov_04_140724_CET_2013343, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = java.lang.reflect.InvocationTargetException 
+[mp3, 10.151.156.180Mon_Nov_04_140724_CET_2013343, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = encode.audio.utils.CoreException: Cant encode file! 
+[ogg, 10.151.156.180Mon_Nov_04_140724_CET_2013343, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = encode.audio.utils.CoreException: Cant encode file! 
 [wav, 10.151.156.180Tue_Nov_05_141112_CET_2013343, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = FluxTmlg [body=AnnounceAudioTmlg [url=http://localhost/get10.151.156.180Tue_Nov_05_141112_CET_2013343.wav, format=wav, fileName=10.151.156.180Tue_Nov_05_141112_CET_2013343.wav]] 
-[mp3, 10.151.156.180Tue_Nov_05_141112_CET_2013343, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = java.lang.reflect.InvocationTargetException 
-[ogg, 10.151.156.180Tue_Nov_05_141112_CET_2013343, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = java.lang.reflect.InvocationTargetException 
+[mp3, 10.151.156.180Tue_Nov_05_141112_CET_2013343, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = encode.audio.utils.CoreException: Cant encode file! 
+[ogg, 10.151.156.180Tue_Nov_05_141112_CET_2013343, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = encode.audio.utils.CoreException: Cant encode file! 
