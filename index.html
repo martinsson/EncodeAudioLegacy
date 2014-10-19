@@ -64,12 +64,20 @@ change between steps using changeStep.sh or nextStep.bat</p>
   <p>No use of IfluxTmlg.toString()</p>
 
 <h2><a name="step-4---mocking-webservice" class="anchor" href="#step-4---mocking-webservice"><span class="octicon octicon-link"></span></a>Step 4 - Mocking a webservice</h2>
-  Goal: Setup a webserver, to serve a file
+  Goal: Setup a webserver to serve a file
   <p>All tests are failing because the code now tries to download a file from an external webserver. Check the logs for the details of the missing file.
   <p>Configure Moco's 'server' object to respond with one of the source files in src/test/resources</p>
 
   <h3>Acceptance Test</h3>
   <p>The test passes without exception for atleast some of the combinations of input arguments</p>
+
+<h2><a name="step-5---capture-side-effects" class="anchor" href="#step-5---capture-side-effects"><span class="octicon octicon-link"></span></a>Step 5 - Capturing side effects</h2>
+  Goal: Capture the side effects and use them in the comparison
+  <p>Files are encoded and saved to disk for access by 3rd party, capture for instance the names of all encoded files, append the file names to the result.
+  The files are saved to the 'tmpDir' that is initialised in the test</p>
+
+  <h3>Acceptance Test</h3>
+  <p>Use both the result of the function call and the side effects for approving.</p>
 
 </section>
 <footer>
