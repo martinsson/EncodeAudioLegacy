@@ -34,6 +34,55 @@
 <p>First use the setup instructions available in the README at the <a href="https://github.com/martinsson/EncodeAudioLegacy">base of the repo</a>
 change between steps using changeStep.sh or nextStep.bat</p>
 
+<h2 class="anchor">Requirements</h2>
+
+<ul>
+  <li>JDK 7.x</li>
+  <li>Eclipse + EclEmma + m2e (or equivalent)</li>
+  <li>Maven 3.x</li>
+  <li>Diff-tool : for instance DiffMerge, WinMerge or Meld</li>
+  <li>Git</li>
+  <li>Internet/Wifi (for downloading maven dependencies)
+    <ul>
+      <li>Please do mvn clean compile beforehand</li>
+    </ul>
+  </li>
+</ul>
+
+
+<h2 class="anchor">Step 0: Check the tools</h3>
+  Goal : validate your tools are working
+
+  <p>Procedure</p>
+  <ol>
+  <li>build : mvn clean compile</li>
+  <li>There's a unit test: checkJUnit().
+
+  <ol>
+  <li>It should fail.</li>
+  <li>Fix it.</li>
+  <li>It should pass</li>
+  </ol>
+  </li>
+  <li>Run code coverage you should have 0%</li>
+  <li>There's a unit test: checkApprovalTestsReporter().
+
+  <ol>
+  <li>Remove the @Ignore annotation</li>
+  <li>It should open a window corresponding to your default diff tool</li>
+  </ol>
+  </li>
+  </ol>
+
+
+  <h3>Acceptance tests</h3>
+
+    <ol>
+    <li>I am able to build the project</li>
+    <li>I can launch a unit test</li>
+    <li>I can see the code coverage</li>
+    <li>Approval Tests is able to launch a diff tool</li>
+    </ol>
 <h2><a name="step-1---string-comparison-using-approvaltests" class="anchor" href="#step-1---string-comparison-using-approvaltests"><span class="octicon octicon-link"></span></a>Step 1 - String comparison using ApprovalTests</h2>
   Goal: Get familiar with ApprovalTests
   <p>Bonus: find a way of covering the FileNotFoundException</p>
