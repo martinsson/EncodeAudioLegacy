@@ -1,0 +1,19 @@
+	@Test
+	public void coverageAudioAnnounceEngine() throws Exception {
+		// Given
+		String targetFormat = "mp3";
+
+		AudioAnnounceTmlg audioFileMessage = new AudioAnnounceTmlg(HOST + "10.151.156.180Mon_Nov_04_140724_CET_2013343", targetFormat, REMOTE_AUDIO_FILE_NAME);
+		DataObject configAudioTmp = new AudioDataObject("." + targetFormat);
+		DataObject httpDataObj = new HttpDataObj("./src/test/resources/", "http://localhost/get");
+
+		LocalHTTPSServer localServerFolder = new LocalHTTPSServer();
+		LocalTmpFolder localTmpFolder = new LocalTmpFolder();
+		AudioAnnounceEngine audioAnnounceEngine = new AudioAnnounceEngine(localServerFolder, localTmpFolder);
+
+		// When
+		String flux = audioAnnounceEngine.publishAudioFile(audioFileMessage, configAudioTmp, httpDataObj);
+
+		// Then
+		Approvals.verify(flux);
+	}
