@@ -54,7 +54,7 @@ public class AudioAnnounceEngineTest {
 	}
 
 
-	private String coverageAudioAnnounceEngine(String url, String targetFormat, String remoteAudioFileName) throws Exception {
+	public String coverageAudioAnnounceEngine(String url, String targetFormat, String remoteAudioFileName) throws Exception {
 		AudioAnnounceTmlg audioFileMessage = new AudioAnnounceTmlg(url, targetFormat, remoteAudioFileName);
 		DataObject configAudioTmp = new AudioDataObject("." + targetFormat);
 
