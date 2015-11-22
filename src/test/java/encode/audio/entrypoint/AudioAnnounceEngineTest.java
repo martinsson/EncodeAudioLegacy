@@ -1,7 +1,6 @@
 package encode.audio.entrypoint;
 
 import org.approvaltests.Approvals;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import flux.AudioAnnounceTmlg;
@@ -13,21 +12,14 @@ public class AudioAnnounceEngineTest {
 	private static final String REMOTE_AUDIO_FILE_NAME2 = "10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3";
 
 	@Test
-	public void coverageAudioAnnounceEngine() throws Exception {
+	public void coverageAudioAnnounceEngine_wav_to_mp3() throws Exception {
 		// Given
+		String url = HOST + "10.151.156.180Mon_Nov_04_140724_CET_2013343";
 		String targetFormat = "mp3";
-
-		AudioAnnounceTmlg audioFileMessage = new AudioAnnounceTmlg(HOST + "10.151.156.180Mon_Nov_04_140724_CET_2013343", targetFormat, REMOTE_AUDIO_FILE_NAME);
-		DataObject configAudioTmp = new AudioDataObject("." + targetFormat);
-
-		DataObject httpDataObj = new HttpDataObj("./src/test/resources/", "http://localhost/get");
-
-		LocalHTTPSServer localServerFolder = new LocalHTTPSServer();
-		LocalTmpFolder localTmpFolder = new LocalTmpFolder();
-		AudioAnnounceEngine audioAnnounceEngine = new AudioAnnounceEngine(localServerFolder, localTmpFolder);
+		String remoteAudioFileName = REMOTE_AUDIO_FILE_NAME;
 
 		// When
-		String flux = audioAnnounceEngine.publishAudioFile(audioFileMessage, configAudioTmp, httpDataObj);
+		String flux = coverageAudioAnnounceEngine(url, targetFormat, remoteAudioFileName);
 
 		// Then
 		Approvals.verify(flux);
@@ -36,18 +28,12 @@ public class AudioAnnounceEngineTest {
 	@Test
 	public void coverageAudioAnnounceEngine_mp3_to_wav() throws Exception {
 	    // Given
+		String url = HOST + "10.151.156.180Tue_Nov_05_141112_CET_2013343";
 	    String targetFormat = "wav";
-
-	    AudioAnnounceTmlg audioFileMessage = new AudioAnnounceTmlg(HOST + "10.151.156.180Tue_Nov_05_141112_CET_2013343", targetFormat, REMOTE_AUDIO_FILE_NAME2);
-	    DataObject configAudioTmp = new AudioDataObject("." + targetFormat);
-	    DataObject httpDataObj = new HttpDataObj("./src/test/resources/", "http://localhost/get");
-
-	    LocalHTTPSServer localServerFolder = new LocalHTTPSServer();
-	    LocalTmpFolder localTmpFolder = new LocalTmpFolder();
-	    AudioAnnounceEngine audioAnnounceEngine = new AudioAnnounceEngine(localServerFolder, localTmpFolder);
+	    String remoteAudioFileName = REMOTE_AUDIO_FILE_NAME2;
 
 	    // When
-	    String flux = audioAnnounceEngine.publishAudioFile(audioFileMessage, configAudioTmp, httpDataObj);
+	    String flux = coverageAudioAnnounceEngine(url, targetFormat, remoteAudioFileName);
 
 	    // Then
 	    Approvals.verify(flux);
@@ -56,18 +42,28 @@ public class AudioAnnounceEngineTest {
 	@Test(expected=AppTechnicalException.class)
 	public void coverageAudioAnnounceEngine_notsupported() throws Exception {
 	    // Given
+		String url = HOST + "10.151.156.180Tue_Nov_05_141112_CET_2013343";
 	    String targetFormat = "ogg";
-
-	    AudioAnnounceTmlg audioFileMessage = new AudioAnnounceTmlg(HOST + "10.151.156.180Tue_Nov_05_141112_CET_2013343", targetFormat, REMOTE_AUDIO_FILE_NAME2);
-	    DataObject configAudioTmp = new AudioDataObject("." + targetFormat);
-	    DataObject httpDataObj = new HttpDataObj("./src/test/resources/", "http://localhost/get");
-
-	    LocalHTTPSServer localServerFolder = new LocalHTTPSServer();
-	    LocalTmpFolder localTmpFolder = new LocalTmpFolder();
-	    AudioAnnounceEngine audioAnnounceEngine = new AudioAnnounceEngine(localServerFolder, localTmpFolder);
+	    String remoteAudioFileName = REMOTE_AUDIO_FILE_NAME2;
 
 	    // When
-	    String flux = audioAnnounceEngine.publishAudioFile(audioFileMessage, configAudioTmp, httpDataObj);
+	    coverageAudioAnnounceEngine(url, targetFormat, remoteAudioFileName);
 
+	    // Then
+	    // see @Test(expected=AppTechnicalException.class)
+	}
+
+
+	private String coverageAudioAnnounceEngine(String url, String targetFormat, String remoteAudioFileName) throws Exception {
+		AudioAnnounceTmlg audioFileMessage = new AudioAnnounceTmlg(url, targetFormat, remoteAudioFileName);
+		DataObject configAudioTmp = new AudioDataObject("." + targetFormat);
+
+		DataObject httpDataObj = new HttpDataObj("./src/test/resources/", "http://localhost/get");
+
+		LocalHTTPSServer localServerFolder = new LocalHTTPSServer();
+		LocalTmpFolder localTmpFolder = new LocalTmpFolder();
+		AudioAnnounceEngine audioAnnounceEngine = new AudioAnnounceEngine(localServerFolder, localTmpFolder);
+
+		return audioAnnounceEngine.publishAudioFile(audioFileMessage, configAudioTmp, httpDataObj);
 	}
 }
