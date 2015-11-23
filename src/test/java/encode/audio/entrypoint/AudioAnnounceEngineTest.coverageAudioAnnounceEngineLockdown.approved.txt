@@ -1,0 +1,136 @@
+[http://localhost:12306/10.151.156.180Mon_Nov_04_140724_CET_2013343, mp3, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = <flux.FluxTmlg>
+  <body class="flux.FluxTmlg$2">
+    <outer-class reference="../.."/>
+    <val_-travelInfo class="flux.FluxTmlg$1">
+      <outer-class reference="../../.."/>
+      <val_-audioAnnounce class="flux.AudioAnnounceTmlg">
+        <url>http://localhost/get/10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3</url>
+        <format>mp3</format>
+        <fileName>10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3</fileName>
+      </val_-audioAnnounce>
+    </val_-travelInfo>
+    <val_-audioAnnounce class="flux.AudioAnnounceTmlg" reference="../val_-travelInfo/val_-audioAnnounce"/>
+  </body>
+</flux.FluxTmlg> 
+[http://localhost:12306/10.151.156.180Tue_Nov_05_141112_CET_2013343, mp3, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = <flux.FluxTmlg>
+  <body class="flux.FluxTmlg$2">
+    <outer-class reference="../.."/>
+    <val_-travelInfo class="flux.FluxTmlg$1">
+      <outer-class reference="../../.."/>
+      <val_-audioAnnounce class="flux.AudioAnnounceTmlg">
+        <url>http://localhost/get/10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3</url>
+        <format>mp3</format>
+        <fileName>10.151.156.180Mon_Nov_04_140724_CET_2013343.mp3</fileName>
+      </val_-audioAnnounce>
+    </val_-travelInfo>
+    <val_-audioAnnounce class="flux.AudioAnnounceTmlg" reference="../val_-travelInfo/val_-audioAnnounce"/>
+  </body>
+</flux.FluxTmlg> 
+[http://localhost:12306/10.151.156.180Mon_Nov_04_140724_CET_2013343, wav, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = encode.audio.utils.CoreException: Cant encode file! 
+[http://localhost:12306/10.151.156.180Tue_Nov_05_141112_CET_2013343, wav, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = encode.audio.utils.CoreException: Cant encode file! 
+[http://localhost:12306/10.151.156.180Mon_Nov_04_140724_CET_2013343, ogg, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = encode.audio.utils.CoreException: Cant encode file! 
+[http://localhost:12306/10.151.156.180Tue_Nov_05_141112_CET_2013343, ogg, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = encode.audio.utils.CoreException: Cant encode file! 
+[http://localhost:12306/10.151.156.180Mon_Nov_04_140724_CET_2013343, zip, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = <flux.FluxTmlg>
+  <body class="flux.FluxTmlg$2">
+    <outer-class reference="../.."/>
+    <val_-travelInfo class="flux.FluxTmlg$1">
+      <outer-class reference="../../.."/>
+      <val_-audioAnnounce class="flux.AudioAnnounceTmlg">
+        <url>http://localhost/get/10.151.156.180Mon_Nov_04_140724_CET_2013343.zip</url>
+        <format>zip</format>
+        <fileName>10.151.156.180Mon_Nov_04_140724_CET_2013343.zip</fileName>
+      </val_-audioAnnounce>
+    </val_-travelInfo>
+    <val_-audioAnnounce class="flux.AudioAnnounceTmlg" reference="../val_-travelInfo/val_-audioAnnounce"/>
+  </body>
+</flux.FluxTmlg> 
+[http://localhost:12306/10.151.156.180Tue_Nov_05_141112_CET_2013343, zip, 10.151.156.180Mon_Nov_04_140724_CET_2013343.wav] = <flux.FluxTmlg>
+  <body class="flux.FluxTmlg$2">
+    <outer-class reference="../.."/>
+    <val_-travelInfo class="flux.FluxTmlg$1">
+      <outer-class reference="../../.."/>
+      <val_-audioAnnounce class="flux.AudioAnnounceTmlg">
+        <url>http://localhost/get/10.151.156.180Mon_Nov_04_140724_CET_2013343.zip</url>
+        <format>zip</format>
+        <fileName>10.151.156.180Mon_Nov_04_140724_CET_2013343.zip</fileName>
+      </val_-audioAnnounce>
+    </val_-travelInfo>
+    <val_-audioAnnounce class="flux.AudioAnnounceTmlg" reference="../val_-travelInfo/val_-audioAnnounce"/>
+  </body>
+</flux.FluxTmlg> 
+[http://localhost:12306/10.151.156.180Mon_Nov_04_140724_CET_2013343, mp3, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = encode.audio.utils.CoreException: Cant encode file! 
+[http://localhost:12306/10.151.156.180Tue_Nov_05_141112_CET_2013343, mp3, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = encode.audio.utils.CoreException: Cant encode file! 
+[http://localhost:12306/10.151.156.180Mon_Nov_04_140724_CET_2013343, wav, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = <flux.FluxTmlg>
+  <body class="flux.FluxTmlg$2">
+    <outer-class reference="../.."/>
+    <val_-travelInfo class="flux.FluxTmlg$1">
+      <outer-class reference="../../.."/>
+      <val_-audioAnnounce class="flux.AudioAnnounceTmlg">
+        <url>http://localhost/get/10.151.156.180Tue_Nov_05_141112_CET_2013343.wav</url>
+        <format>wav</format>
+        <fileName>10.151.156.180Tue_Nov_05_141112_CET_2013343.wav</fileName>
+      </val_-audioAnnounce>
+    </val_-travelInfo>
+    <val_-audioAnnounce class="flux.AudioAnnounceTmlg" reference="../val_-travelInfo/val_-audioAnnounce"/>
+  </body>
+</flux.FluxTmlg> 
+[http://localhost:12306/10.151.156.180Tue_Nov_05_141112_CET_2013343, wav, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = <flux.FluxTmlg>
+  <body class="flux.FluxTmlg$2">
+    <outer-class reference="../.."/>
+    <val_-travelInfo class="flux.FluxTmlg$1">
+      <outer-class reference="../../.."/>
+      <val_-audioAnnounce class="flux.AudioAnnounceTmlg">
+        <url>http://localhost/get/10.151.156.180Tue_Nov_05_141112_CET_2013343.wav</url>
+        <format>wav</format>
+        <fileName>10.151.156.180Tue_Nov_05_141112_CET_2013343.wav</fileName>
+      </val_-audioAnnounce>
+    </val_-travelInfo>
+    <val_-audioAnnounce class="flux.AudioAnnounceTmlg" reference="../val_-travelInfo/val_-audioAnnounce"/>
+  </body>
+</flux.FluxTmlg> 
+[http://localhost:12306/10.151.156.180Mon_Nov_04_140724_CET_2013343, ogg, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = encode.audio.utils.CoreException: Cant encode file! 
+[http://localhost:12306/10.151.156.180Tue_Nov_05_141112_CET_2013343, ogg, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = encode.audio.utils.CoreException: Cant encode file! 
+[http://localhost:12306/10.151.156.180Mon_Nov_04_140724_CET_2013343, zip, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = <flux.FluxTmlg>
+  <body class="flux.FluxTmlg$2">
+    <outer-class reference="../.."/>
+    <val_-travelInfo class="flux.FluxTmlg$1">
+      <outer-class reference="../../.."/>
+      <val_-audioAnnounce class="flux.AudioAnnounceTmlg">
+        <url>http://localhost/get/10.151.156.180Tue_Nov_05_141112_CET_2013343.zip</url>
+        <format>zip</format>
+        <fileName>10.151.156.180Tue_Nov_05_141112_CET_2013343.zip</fileName>
+      </val_-audioAnnounce>
+    </val_-travelInfo>
+    <val_-audioAnnounce class="flux.AudioAnnounceTmlg" reference="../val_-travelInfo/val_-audioAnnounce"/>
+  </body>
+</flux.FluxTmlg> 
+[http://localhost:12306/10.151.156.180Tue_Nov_05_141112_CET_2013343, zip, 10.151.156.180Tue_Nov_05_141112_CET_2013343.mp3] = <flux.FluxTmlg>
+  <body class="flux.FluxTmlg$2">
+    <outer-class reference="../.."/>
+    <val_-travelInfo class="flux.FluxTmlg$1">
+      <outer-class reference="../../.."/>
+      <val_-audioAnnounce class="flux.AudioAnnounceTmlg">
+        <url>http://localhost/get/10.151.156.180Tue_Nov_05_141112_CET_2013343.zip</url>
+        <format>zip</format>
+        <fileName>10.151.156.180Tue_Nov_05_141112_CET_2013343.zip</fileName>
+      </val_-audioAnnounce>
+    </val_-travelInfo>
+    <val_-audioAnnounce class="flux.AudioAnnounceTmlg" reference="../val_-travelInfo/val_-audioAnnounce"/>
+  </body>
+</flux.FluxTmlg> 
+[http://localhost:12306/10.151.156.180Mon_Nov_04_140724_CET_2013343, mp3, 10.151.156.180Tue_Nov_05_141112_CET_2013343.ogg] = encode.audio.utils.CoreException: Cant encode file! 
+[http://localhost:12306/10.151.156.180Tue_Nov_05_141112_CET_2013343, mp3, 10.151.156.180Tue_Nov_05_141112_CET_2013343.ogg] = encode.audio.utils.CoreException: Cant encode file! 
+[http://localhost:12306/10.151.156.180Mon_Nov_04_140724_CET_2013343, wav, 10.151.156.180Tue_Nov_05_141112_CET_2013343.ogg] = encode.audio.utils.CoreException: Cant encode file! 
+[http://localhost:12306/10.151.156.180Tue_Nov_05_141112_CET_2013343, wav, 10.151.156.180Tue_Nov_05_141112_CET_2013343.ogg] = encode.audio.utils.CoreException: Cant encode file! 
+[http://localhost:12306/10.151.156.180Mon_Nov_04_140724_CET_2013343, ogg, 10.151.156.180Tue_Nov_05_141112_CET_2013343.ogg] = encode.audio.utils.CoreException: Cant encode file! 
+[http://localhost:12306/10.151.156.180Tue_Nov_05_141112_CET_2013343, ogg, 10.151.156.180Tue_Nov_05_141112_CET_2013343.ogg] = encode.audio.utils.CoreException: Cant encode file! 
+[http://localhost:12306/10.151.156.180Mon_Nov_04_140724_CET_2013343, zip, 10.151.156.180Tue_Nov_05_141112_CET_2013343.ogg] = encode.audio.utils.CoreException: Cant encode file! 
+[http://localhost:12306/10.151.156.180Tue_Nov_05_141112_CET_2013343, zip, 10.151.156.180Tue_Nov_05_141112_CET_2013343.ogg] = encode.audio.utils.CoreException: Cant encode file! 
+[http://localhost:12306/10.151.156.180Mon_Nov_04_140724_CET_2013343, mp3, 10.151.156.180Tue_Nov_05_141112_CET_2013343.tmp] = encode.audio.utils.CoreException: Cant encode file! 
+[http://localhost:12306/10.151.156.180Tue_Nov_05_141112_CET_2013343, mp3, 10.151.156.180Tue_Nov_05_141112_CET_2013343.tmp] = encode.audio.utils.CoreException: Cant encode file! 
+[http://localhost:12306/10.151.156.180Mon_Nov_04_140724_CET_2013343, wav, 10.151.156.180Tue_Nov_05_141112_CET_2013343.tmp] = encode.audio.utils.CoreException: Cant encode file! 
+[http://localhost:12306/10.151.156.180Tue_Nov_05_141112_CET_2013343, wav, 10.151.156.180Tue_Nov_05_141112_CET_2013343.tmp] = encode.audio.utils.CoreException: Cant encode file! 
+[http://localhost:12306/10.151.156.180Mon_Nov_04_140724_CET_2013343, ogg, 10.151.156.180Tue_Nov_05_141112_CET_2013343.tmp] = encode.audio.utils.CoreException: Cant encode file! 
+[http://localhost:12306/10.151.156.180Tue_Nov_05_141112_CET_2013343, ogg, 10.151.156.180Tue_Nov_05_141112_CET_2013343.tmp] = encode.audio.utils.CoreException: Cant encode file! 
+[http://localhost:12306/10.151.156.180Mon_Nov_04_140724_CET_2013343, zip, 10.151.156.180Tue_Nov_05_141112_CET_2013343.tmp] = encode.audio.utils.CoreException: Cant encode file! 
+[http://localhost:12306/10.151.156.180Tue_Nov_05_141112_CET_2013343, zip, 10.151.156.180Tue_Nov_05_141112_CET_2013343.tmp] = encode.audio.utils.CoreException: Cant encode file! 
